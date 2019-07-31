@@ -55,6 +55,8 @@ public class TwoPlayerName extends JFrame
 	      }
 		private void button_ActionPerformed(ActionEvent evt) 
 		{
+			LoadGui.setPlayerOneNameString(jTextField1.getText());
+			LoadGui.setPlayerTwoNameString(jTextfield2.getText());
 			new Playground();
 			dispose();
 		}

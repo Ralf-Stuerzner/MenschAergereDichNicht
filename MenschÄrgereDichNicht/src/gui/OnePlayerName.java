@@ -7,14 +7,14 @@ import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.Closeable;
+import java.io.PrintStream;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-public class OnePlayerName extends JFrame 
+public class OnePlayerName extends JFrame
 {
 	private JLabel textfield1 = new JLabel();
 	private JLabel textfield2 = new JLabel();
@@ -37,8 +37,7 @@ public class OnePlayerName extends JFrame
 		cp.setBackground(Color.WHITE);
 		textfield1.setBounds(20, 0, 261, 44);
 	    textfield1.setText("Hier können Sie die Spielernamen eingeben.");
-	    cp.add(textfield1);
-	    
+	    cp.add(textfield1); 
 	    textfield2.setBounds(16, 56, 62, 20);
 	    textfield2.setText("Spieler 1 :");
 	    cp.add(textfield2);
@@ -55,13 +54,12 @@ public class OnePlayerName extends JFrame
 	      }
 		private void button_ActionPerformed(ActionEvent evt) 
 		{
-			String test = new String(jTextField1.getText());
-			System.out.println(test);
-			new Playground();
+			//LoadGui.setPlayerOneNameString(jTextField1.getText());
+			LoadGui.setPlayerOneNameString(jTextField1.getText());
+			Playground playground = new Playground();
 			dispose();
 		}
 	    });
 	    cp.add(button);
 	}
-	
 }

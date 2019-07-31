@@ -57,6 +57,9 @@ public class ThreePlayerName extends JFrame
 	      }
 		private void button_ActionPerformed(ActionEvent evt) 
 		{
+			LoadGui.setPlayerOneNameString(jTextField1.getText());
+			LoadGui.setPlayerTwoNameString(jTextfield2.getText());
+			LoadGui.setPlayerThreeNameString(jTextField3.getText());
 			new Playground();
 			dispose();
 		}

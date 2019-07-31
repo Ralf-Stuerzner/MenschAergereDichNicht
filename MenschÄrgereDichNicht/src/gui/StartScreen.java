@@ -1,13 +1,10 @@
 package gui;
 import java.awt.Color;
 import java.awt.Container;
-import java.awt.GraphicsConfiguration;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
-import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
-import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -23,7 +20,7 @@ public class StartScreen extends JFrame
 	{
 		super("Mensch ärgere Dich Nicht");
 		setVisible(true);
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		BackgroundPanel backgroundPanel = new BackgroundPanel();
 		Container cp = getContentPane();	// Container für Fenstervariablen				
 		panelButtons.setBounds(-5, 800, 700, 38);
@@ -44,7 +41,6 @@ public class StartScreen extends JFrame
 	      private void buttonEinSpieler_actionPerformed(ActionEvent e)
 	      {
 	    	  new OnePlayerName();
-	    	  dispose();
 	      }
 	    });
 	    panelButtons.add(buttonEinSpieler);
@@ -59,7 +55,6 @@ public class StartScreen extends JFrame
 	      private void buttonZweiSpieler_actionPerformed(ActionEvent e)
 	      {	 
 			new TwoPlayerName();	
-			dispose();
 	      }
 	    });
 	    panelButtons.add(buttonZweiSpieler);
@@ -74,7 +69,6 @@ public class StartScreen extends JFrame
 	      private void buttonDreiSpieler_actionPerformed(ActionEvent e)
 	      {	
 			new ThreePlayerName();
-			dispose();
 	      }
 	    });
 	    panelButtons.add(buttonDreiSpieler);
@@ -89,7 +83,6 @@ public class StartScreen extends JFrame
 	      private void buttonVierSpieler_actionPerformed(ActionEvent e)
 	      {
 			new FourPlayerName();
-			dispose();
 	      }
 	    });
 	    panelButtons.add(buttonVierSpieler);

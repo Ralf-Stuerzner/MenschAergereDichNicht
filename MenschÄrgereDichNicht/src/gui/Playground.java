@@ -1,8 +1,8 @@
 package gui;
 import java.awt.*;
+import java.io.PrintStream;
+
 import javax.swing.*;
-import javax.swing.JPanel;
-import javax.swing.JFrame;
 
 public class Playground extends JFrame						// JFrame Spielfenster
 {
@@ -93,11 +93,22 @@ public class Playground extends JFrame						// JFrame Spielfenster
 	private CircleRed circlered7 = new CircleRed();
 	private CircleRed circlered8 = new CircleRed();
 	private CircleRed circlered9 = new CircleRed();
+	private JLabel textfield1 = new JLabel();
+	private JLabel textfield2 = new JLabel();
+	private JLabel textfield3 = new JLabel();
+	private JLabel textfield4 = new JLabel();
+	private static JTextArea jTextArea1 = new JTextArea();
+	private JScrollPane jTextArea1ScrollPane = new JScrollPane(jTextArea1);
 
+	
+	static void onEvent(String s)
+	{
+		jTextArea1.append(s + "\n");
+	}
 	public Playground()
 	{
 		super();
-		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);		// Programm wird beim schlieﬂen des Fensters beendet
+		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);		// Programm wird beim schlieﬂen des Fensters beendet
 		int frameWidth = 1800;											// Grˆﬂe des Spielfensters
 		int frameHeight = 1000;
 		setSize(frameWidth, frameHeight);	
@@ -111,6 +122,21 @@ public class Playground extends JFrame						// JFrame Spielfenster
 		cp.setLayout(null);
 		cp.setBackground(new Color(r = 204, g = 164, b = 96));			// Hintergrundfarbe Fenster
 
+		jTextArea1ScrollPane.setBounds(980, 10, 795, 940);
+		jTextArea1.setFont(new Font("Times New Roman", Font.BOLD, 20));
+		cp.add(jTextArea1ScrollPane);
+		textfield1.setBounds(150, 20, 100, 30);
+	    textfield1.setText(LoadGui.getPlayerOneNameString());
+	    cp.add(textfield1); 
+	    textfield2.setBounds(740, 20, 100, 30);
+	    textfield2.setText(LoadGui.getPlayerTwoNameString());
+	    cp.add(textfield2);
+	    textfield3.setBounds(150, 830, 100, 30);
+	    textfield3.setText(LoadGui.getPlayerThreeNameString());
+	    cp.add(textfield3); 
+	    textfield4.setBounds(740, 830, 100, 30);
+	    textfield4.setText(LoadGui.getPlayerFourNameString());
+	    cp.add(textfield4);
 		circleweiﬂ1.setBounds(380, 366, 61, 61);						// erstellung der einzelen Bausteine f¸r das Fenster mit Koordinaten
 		circleweiﬂ1.setOpaque(true);
 		cp.add(circleweiﬂ1);

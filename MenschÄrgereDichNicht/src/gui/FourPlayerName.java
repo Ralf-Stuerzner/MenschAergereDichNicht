@@ -60,6 +60,10 @@ public class FourPlayerName extends JFrame
 	      }
 		private void button_ActionPerformed(ActionEvent evt) 
 		{
+			LoadGui.setPlayerOneNameString(jTextField1.getText());
+			LoadGui.setPlayerTwoNameString(jTextfield2.getText());
+			LoadGui.setPlayerThreeNameString(jTextField3.getText());
+			LoadGui.setPlayerFourNameString(jTextField4.getText());
 			new Playground();
 			dispose();
 		}
