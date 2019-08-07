@@ -15,15 +15,14 @@ public class GameLogic {
 	public String[] gameStatus = new String[39];
 
 	public void logic() {
-		System.out.println("\tWillkommen bei dem Spiel Mensch Ärgere Dich nicht\n\n");
+		System.out.println("\tWillkommen bei dem Spiel Mensch Ã„rgere Dich nicht\n\n");
 		delay(1000);
 		System.out.println(" Spieler 1 : " + LoadGui.startScreen.playground.textfield1.getText());
 		System.out.println(" Spieler 2 : " + LoadGui.startScreen.playground.textfield2.getText());
 		System.out.println(" Spieler 3 : " + LoadGui.startScreen.playground.textfield3.getText());
 		System.out.println(" Spieler 4 : " + LoadGui.startScreen.playground.textfield4.getText());
-		System.out.println("\nDas Spiel geht los. Als erstes würfeln die Spieler darum wer anfängt.");
+		System.out.println("\nDas Spiel geht los. Als erstes wÃ¼rfeln die Spieler darum wer anfÃ¤ngt.");
 		delay(3000);
-		LoadGui.startScreen.playground.greenone.setBounds(100, 200, 61, 61);
 
 		String firstN = "";
 		int firstZ = 0;
@@ -43,16 +42,16 @@ public class GameLogic {
 				wuerfelSp[x] = wuerfel[x];
 			}
 			System.out.println(" " + LoadGui.startScreen.playground.textfield1.getText() + " hat eine " + wuerfel[0]
-					+ " gewürfelt.  ");
+					+ " gewÃ¼rfelt.  ");
 			System.out.println(" " + LoadGui.startScreen.playground.textfield2.getText() + " hat eine " + wuerfel[1]
-					+ " gewürfelt. ");
+					+ " gewÃ¼rfelt. ");
 			System.out.println(" " + LoadGui.startScreen.playground.textfield3.getText() + " hat eine " + wuerfel[2]
-					+ " gewürfelt. ");
+					+ " gewÃ¼rfelt. ");
 			System.out.println(" " + LoadGui.startScreen.playground.textfield4.getText() + " hat eine " + wuerfel[3]
-					+ " gewürfelt. ");
+					+ " gewÃ¼rfelt. ");
 
 			bubblesort(wuerfel);
-			System.out.println("\n " + wuerfel[0] + " ist die höchste Augenzahl");
+			System.out.println("\n " + wuerfel[0] + " ist die hÃ¶chste Augenzahl");
 			// auf Duplikate prÃ¼fen
 			int u = 0;
 			firstZ = 0;
@@ -82,12 +81,28 @@ public class GameLogic {
 			}
 			// System.out.println(duplikate[0]+""+duplikate[1]+""+duplikate[2]+""+duplikate[3]);
 			if (u >= 2) {
-				System.out.println("Duplikate gefunden, es wird neu gewürfelt."); // Baustelle funktioniert noch nicht
+				System.out.println("Duplikate gefunden, es wird neu gewÃ¼rfelt."); // Baustelle funktioniert noch nicht
 			} else {
 				System.out.println("Das Spiel geht los");
-				System.out.println("Spieler " + firstN + " fängt an.");
+				System.out.println("Spieler " + firstN + " fÃ¤ngt an.");
 			}
 		}
+		/*
+		for (int i = 0; i<fieldsWhiteX.length; i++) {
+			Playground.redone.setBounds(fieldsWhiteX[i],fieldsWhiteY[i],61,61);
+			delay(1000);
+		}
+*/
+		getOut(firstZ);
+		int w = wuerfeln();
+		System.out.println(firstN + " wÃ¼rfelt eine " + w);
+		delay(1000);
+	/*	
+		if (fieldsWhiteX[actualField] > plusField) {
+			newField = ;
+		}
+	*/
+		LoadGui.startScreen.playground.redone.setBounds(fieldsWhiteX[(36+w)],fieldsWhiteY[(36+w)],61,61);
 	}
 
 	public int wuerfeln() {
@@ -101,6 +116,24 @@ public class GameLogic {
 		while ((new Date()).getTime() < ende) {
 			// abwarten und Tee trinken
 		}
+	}
+	
+	public int getOut(int firstZ){
+		switch(firstZ){
+			case 1:
+			LoadGui.startScreen.playground.redone.setBounds(fieldsWhiteX[36],fieldsWhiteY[36],61,61);
+			break;
+			case 2:
+			LoadGui.startScreen.playground.blueone.setBounds(fieldsWhiteX[6],fieldsWhiteY[6],61,61);
+			break;
+			case 3:
+			LoadGui.startScreen.playground.yellowone.setBounds(fieldsWhiteX[26], fieldsWhiteY[26],61,61);
+			break;
+			case 4:
+			LoadGui.startScreen.playground.greenone.setBounds(fieldsWhiteX[16], fieldsWhiteY[16],61,61);
+			break;
+		}
+		return 0;
 	}
 
 	public int[] bubblesort(int[] zusortieren) // Bubblesort Methode zum sortieren eines Feldes mit Integern. Von

@@ -9,6 +9,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 
+
 public class StartScreen extends JFrame 
 {
 	private JPanel panelButtons = new JPanel();
@@ -31,7 +32,7 @@ public class StartScreen extends JFrame
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		BackgroundPanel backgroundPanel = new BackgroundPanel();
 		Container cp = getContentPane();	// Container für Fenstervariablen			
-		panelButtons.setBounds(-5, 800, 700, 38);
+		panelButtons.setBounds(-5, java.awt.Toolkit.getDefaultToolkit().getScreenSize().height-200, 700, 38);
 		panelButtons.setBackground(Color.WHITE);
 		panelButtons.setBorder(new javax.swing.border.LineBorder(Color.BLACK, 2));
 		panelButtons.setOpaque(true);

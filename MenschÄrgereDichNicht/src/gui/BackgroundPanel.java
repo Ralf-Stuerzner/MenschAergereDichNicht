@@ -8,6 +8,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+
 class BackgroundPanel extends JPanel
 {
 	private static final long serialVersionUID = 1L;
@@ -30,7 +31,7 @@ class BackgroundPanel extends JPanel
 	{
 		// TODO Auto-generated method stub
 		super.paintComponent(g);
-		g.drawImage(img, 0, 0, this);
+		g.drawImage(img, 0, 0, java.awt.Toolkit.getDefaultToolkit().getScreenSize().width,java.awt.Toolkit.getDefaultToolkit().getScreenSize().height,null);
 	}
 	public Image getBackgroundImage() 
 	{
