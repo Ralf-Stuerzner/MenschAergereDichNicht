@@ -88,8 +88,299 @@ public class GameLogic {
 				System.out.println("Spieler " + firstN + " fängt an.");
 			}
 		}
+	
+		int[] start = new int[4]; //steine die nicht im spiel sind
+		int[] feld = new int[40]; //felder im spiel vom roten start gezählt
+		int merks = -1;//merke spieler und start((merks-1)*10)
+		int merk = 0; //merke zahl
+		int[] merke_pos = {0,0,0,0}; //merkt anzahl der figuren im spiel
+		int[][] pos = {{0,0,0,0},{0,0,0,0},{0,0,0,0},{0,0,0,0}};	//position der spielfiguren 
+		int counter = 0;
+		boolean gewinn = false;
+		int[][] haus = {{0,0,0,0},{0,0,0,0},{0,0,0,0},{0,0,0,0}};
+		
+		for(int i=0;i<4;i++)
+		{
+			start[i]=4;
+		}
+		for(int i=0;i<40;i++)
+		{
+			feld[i]=0;
+		}
+		if(firstN==LoadGui.startScreen.playground.textfield1.getText())
+		{
+			merks=1;
+		}
+		if(firstN==LoadGui.startScreen.playground.textfield2.getText())
+		{
+			merks=2;
+		}
+		if(firstN==LoadGui.startScreen.playground.textfield3.getText())
+		{
+			merks=3;
+		}
+		if(firstN==LoadGui.startScreen.playground.textfield4.getText())
+		{
+			merks=4;
+		}
+		
+		do {
+			
+			if(start[merks-1]==4)
+			{
+				System.out.println(firstN+" hat keinen Stein auf dem Spielfeld er darf dreimal würfeln.");
+				while( (counter<3) && (merk!=6) )
+				{
+					merk=wuerfeln();
+					counter++;
+					System.out.println(firstN+" hat eine "+merk+" gewürfelt.");
+				}
+				counter=0;
+				if(merk==6)
+				{
+					start[merks-1]-=1;
+					merk=wuerfeln();
+					System.out.println(firstN+" kommt raus und hat eine "+merk+" gewürfelt");
+					while(merk==6)
+					{
+						merk=wuerfeln();
+						//test das es im feld bleibt
+						if(((merks==1)&&((pos[merks-1][merke_pos[merks-1]]+merk)>39))||((merks==2) && (((pos[merks-1][merke_pos[merks-1]]+merk)>9) &&(pos[merks-1][merke_pos[merks-1]])<=9)) ||	((merks==3) && (((pos[merks-1][merke_pos[merks-1]]+merk)>19) &&(pos[merks-1][merke_pos[merks-1]])<=19)) || ((merks==4) && (((pos[merks-1][merke_pos[merks-1]]+merk)>29) &&(pos[merks-1][merke_pos[merks-1]])<=29)))
+						{
+							switch(merks)
+							{
+							case 1:
+								if(((pos[merks-1][merke_pos[merks-1]]+merk)-39)<=4)
+								{
+									haus[merks-1][((pos[merks-1][merke_pos[merks-1]]+merk)-39)]=merks;
+									feld[pos[merks-1][merke_pos[merks-1]]]=0;
+									pos[merks-1][merke_pos[merks-1]]=-1;
+									merke_pos[merks-1]-=1;
+								}
+							case 2:
+								if(((pos[merks-1][merke_pos[merks-1]]+merk)-9)<=4)
+								{
+									haus[merks-1][((pos[merks-1][merke_pos[merks-1]]+merk)-9)]=merks;
+									feld[pos[merks-1][merke_pos[merks-1]]]=0;
+									pos[merks-1][merke_pos[merks-1]]=-1;
+									merke_pos[merks-1]-=1;
+								}
+							case 3:
+								if(((pos[merks-1][merke_pos[merks-1]]+merk)-19)<=4)
+								{
+									haus[merks-1][((pos[merks-1][merke_pos[merks-1]]+merk)-19)]=merks;
+									feld[pos[merks-1][merke_pos[merks-1]]]=0;
+									pos[merks-1][merke_pos[merks-1]]=-1;
+									merke_pos[merks-1]-=1;
+								}
+							case 4:
+								if(((pos[merks-1][merke_pos[merks-1]]+merk)-29)<=4)
+								{
+									haus[merks-1][((pos[merks-1][merke_pos[merks-1]]+merk)-29)]=merks;
+									feld[pos[merks-1][merke_pos[merks-1]]]=0;
+									pos[merks-1][merke_pos[merks-1]]=-1;
+									merke_pos[merks-1]-=1;
+								}
+							}
+						}
+						else
+						{
+							if((pos[merks-1][merke_pos[merks-1]]+merk)>39)
+							{
+								pos[merks-1][merke_pos[merks-1]]-=39;
+							}
+							feld[pos[merks-1][merke_pos[merks-1]]]=0;
+							feld[pos[merks-1][merke_pos[merks-1]]+merk]=merks;
+							System.out.println(firstN+" darf nochmal würfeln und hat eine "+merk+" gewürfelt");
+						}
+					}
+					feld[((merks-1)*10)+merk]=merks;
+					pos[merks-1][merke_pos[merks-1]]=((merks-1)*10)+merk;
+					merke_pos[merks-1]+=1;
+				}
+			}
+			else
+			{
+				merk=wuerfeln();
+				System.out.println(firstN+" hat eine "+merk+" gewürfelt.");
+				if((merk==6) && (start[merks-1]!=0))
+				{
+					start[merks-1]-=1;
+					merk=wuerfeln();
+					System.out.println(firstN+" kommt raus und hat eine "+merk+" gewürfelt");
+					feld[((merks-1)*10)+merk]=merks;
+					pos[merks-1][merke_pos[merks-1]]=((merks-1)*10)+merk;
+					merke_pos[merks-1]+=1;
+				}
+				else if((merk==6) && (start[merks-1]==0))
+				{
+					while(merk==6)
+					{
+						merk=wuerfeln();
+						//test das es im feld bleibt
+						if(((merks==1)&&((pos[merks-1][merke_pos[merks-1]]+merk)>39))||((merks==2) && (((pos[merks-1][merke_pos[merks-1]]+merk)>9) &&(pos[merks-1][merke_pos[merks-1]])<=9)) ||	((merks==3) && (((pos[merks-1][merke_pos[merks-1]]+merk)>19) &&(pos[merks-1][merke_pos[merks-1]])<=19)) || ((merks==4) && (((pos[merks-1][merke_pos[merks-1]]+merk)>29) &&(pos[merks-1][merke_pos[merks-1]])<=29)))
+						{
+							switch(merks)
+							{
+							case 1:
+								if(((pos[merks-1][merke_pos[merks-1]]+merk)-39)<=4)
+								{
+									haus[merks-1][((pos[merks-1][merke_pos[merks-1]]+merk)-39)]=merks;
+									feld[pos[merks-1][merke_pos[merks-1]]]=0;
+									pos[merks-1][merke_pos[merks-1]]=-1;
+									merke_pos[merks-1]-=1;
+								}
+							case 2:
+								if(((pos[merks-1][merke_pos[merks-1]]+merk)-9)<=4)
+								{
+									haus[merks-1][((pos[merks-1][merke_pos[merks-1]]+merk)-9)]=merks;
+									feld[pos[merks-1][merke_pos[merks-1]]]=0;
+									pos[merks-1][merke_pos[merks-1]]=-1;
+									merke_pos[merks-1]-=1;
+								}
+							case 3:
+								if(((pos[merks-1][merke_pos[merks-1]]+merk)-19)<=4)
+								{
+									haus[merks-1][((pos[merks-1][merke_pos[merks-1]]+merk)-19)]=merks;
+									feld[pos[merks-1][merke_pos[merks-1]]]=0;
+									pos[merks-1][merke_pos[merks-1]]=-1;
+									merke_pos[merks-1]-=1;
+								}
+							case 4:
+								if(((pos[merks-1][merke_pos[merks-1]]+merk)-29)<=4)
+								{
+									haus[merks-1][((pos[merks-1][merke_pos[merks-1]]+merk)-29)]=merks;
+									feld[pos[merks-1][merke_pos[merks-1]]]=0;
+									pos[merks-1][merke_pos[merks-1]]=-1;
+									merke_pos[merks-1]-=1;
+								}
+							}
+						}
+						else
+						{
+							if((pos[merks-1][merke_pos[merks-1]]+merk)>39)
+							{
+								pos[merks-1][merke_pos[merks-1]]-=39;
+							}
+							System.out.println(firstN+" darf nochmal würfeln und hat eine "+merk+" gewürfelt");
+							feld[pos[merks-1][merke_pos[merks-1]]]=0;
+							feld[pos[merks-1][merke_pos[merks-1]]+merk]=merks;
+						}
+					}
+				}	
+				else
+				{	
+	
+					if(((merks==1)&&((pos[merks-1][merke_pos[merks-1]]+merk)>39))||((merks==2) && (((pos[merks-1][merke_pos[merks-1]]+merk)>9) &&(pos[merks-1][merke_pos[merks-1]])<=9)) ||	((merks==3) && (((pos[merks-1][merke_pos[merks-1]]+merk)>19) &&(pos[merks-1][merke_pos[merks-1]])<=19)) || ((merks==4) && (((pos[merks-1][merke_pos[merks-1]]+merk)>29) &&(pos[merks-1][merke_pos[merks-1]])<=29)))
+					{
+						switch(merks)
+						{
+						case 1:
+							if(((pos[merks-1][merke_pos[merks-1]]+merk)-39)<=4)
+							{
+								haus[merks-1][((pos[merks-1][merke_pos[merks-1]]+merk)-39)]=merks;
+								feld[pos[merks-1][merke_pos[merks-1]]]=0;
+								pos[merks-1][merke_pos[merks-1]]=-1;
+								merke_pos[merks-1]-=1;
+							}
+						case 2:
+							if(((pos[merks-1][merke_pos[merks-1]]+merk)-9)<=4)
+							{
+								haus[merks-1][((pos[merks-1][merke_pos[merks-1]]+merk)-9)]=merks;
+								feld[pos[merks-1][merke_pos[merks-1]]]=0;
+								pos[merks-1][merke_pos[merks-1]]=-1;
+								merke_pos[merks-1]-=1;
+							}
+						case 3:
+							if(((pos[merks-1][merke_pos[merks-1]]+merk)-19)<=4)
+							{
+								haus[merks-1][((pos[merks-1][merke_pos[merks-1]]+merk)-19)]=merks;
+								feld[pos[merks-1][merke_pos[merks-1]]]=0;
+								pos[merks-1][merke_pos[merks-1]]=-1;
+								merke_pos[merks-1]-=1;
+							}
+						case 4:
+							if(((pos[merks-1][merke_pos[merks-1]]+merk)-29)<=4)
+							{
+								haus[merks-1][((pos[merks-1][merke_pos[merks-1]]+merk)-29)]=merks;
+								feld[pos[merks-1][merke_pos[merks-1]]]=0;
+								pos[merks-1][merke_pos[merks-1]]=-1;
+								merke_pos[merks-1]-=1;
+							}
+						}
+					}
+					else
+					{
+						if((pos[merks-1][merke_pos[merks-1]]+merk)>39)
+						{
+							pos[merks-1][merke_pos[merks-1]]-=39;
+						}
+						feld[pos[merks-1][merke_pos[merks-1]]]=0;
+						feld[pos[merks-1][merke_pos[merks-1]]+merk]=merks;
+						pos[merks-1][merke_pos[merks-1]]+=merk;
+					}
+				}
+			}
+			//gewinnbedingung
+			for(int i = 0; i<4;i++)
+			{
+				merk=0;
+				for(int n = 0; n<4;n++)
+				{
+					merk+=haus[i][n];
+				}
+				if(merk==4)
+				{
+					switch(i)
+					{
+					case 1:
+						firstN=LoadGui.startScreen.playground.textfield1.getText();
+						break;
+					case 2:
+						firstN=LoadGui.startScreen.playground.textfield2.getText();
+						break;
+					case 3:
+						firstN=LoadGui.startScreen.playground.textfield3.getText();
+						break;
+					case 4:
+						firstN=LoadGui.startScreen.playground.textfield4.getText();
+						break;
+					}
+					System.out.println(firstN+" hat gewonnen!");
+					gewinn=true;
+				}
+			}
+			
+			//nächster spieler
+			if(merks==4)
+			{
+				merks=1;
+				firstN=LoadGui.startScreen.playground.textfield1.getText();
+			}
+			else
+			{
+				merks++;
+				switch(merks)
+				{
+				case 2:
+					firstN=LoadGui.startScreen.playground.textfield2.getText();
+					break;
+				case 3:
+					firstN=LoadGui.startScreen.playground.textfield3.getText();
+					break;
+				case 4:
+					firstN=LoadGui.startScreen.playground.textfield4.getText();
+					break;
+				}
+			}
+			
+			
+		}while(gewinn==false);
+
 	}
 
+	
+	
 	public int wuerfeln() {
 		Random ran = new Random();
 		randNum = ran.nextInt(6) + 1;
@@ -123,5 +414,5 @@ public class GameLogic {
 		}
 		return zusortieren;
 	}
-
+	
 }
