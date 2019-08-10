@@ -108,7 +108,7 @@ public class GameLogic {
 		{
 			spieler=4;
 		}
-		LoadGui.startScreen.playground.blueone.setBounds(467, 366, 61, 61);
+		
 
 		game(spieler);
 
@@ -194,7 +194,7 @@ public class GameLogic {
 			//gewinn prüfung
 			if(haus[spieler][0]+haus[spieler][1]+haus[spieler][2]+haus[spieler][3]==1)
 			{
-				System.out.println(name(spieler)+"gewinnt");
+				System.out.println(name(spieler)+" gewinnt");
 				gewinn=true;
 			}
 			//spielerwechsel
@@ -381,8 +381,8 @@ public class GameLogic {
 						break;
 					}
 					figuren[spieler][0]=0;
-					aus=false;
 				}
+				aus=false;
 			}
 			break;
 		case 1:
@@ -408,8 +408,8 @@ public class GameLogic {
 						break;
 					}
 					figuren[spieler][0]=0;
-					aus=false;
-				}
+				}	
+				aus=false;
 			}
 			break;
 		case 2:
@@ -435,8 +435,8 @@ public class GameLogic {
 						break;
 					}
 					figuren[spieler][0]=0;
-					aus=false;
-				}
+				}	
+				aus=false;
 			}
 			break;
 		case 3:
@@ -462,8 +462,8 @@ public class GameLogic {
 						break;
 					}
 					figuren[spieler][0]=0;
-					aus=false;
-				}
+				}	
+				aus=false;
 			}
 			break;
 		}
