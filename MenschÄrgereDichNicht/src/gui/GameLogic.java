@@ -6,6 +6,8 @@ import java.util.Random;
 public class GameLogic {
 
 	private int randNum;
+	private int figuren[][]=new int[4][4];
+	private int[] start= {4,4,4,4};
 	public int[] fieldsWhiteX = { 380, 380, 380, 380, 380, 467, 555, 555, 555, 555, 555, 642, 724, 806, 888, 888,
 			888, 806, 724, 642, 555, 555, 555, 555, 555, 467, 380, 380, 380, 380, 380, 293, 211, 126, 38, 38, 38, 124,
 			208, 292 };
@@ -23,7 +25,7 @@ public class GameLogic {
 		System.out.println(" Spieler 4 : " + LoadGui.startScreen.playground.textfield4.getText());
 		System.out.println("\nDas Spiel geht los. Als erstes würfeln die Spieler darum wer anfängt.");
 		delay(3000);
-		LoadGui.startScreen.playground.greenone.setBounds(100, 200, 61, 61);
+//		LoadGui.startScreen.playground.greenone.setBounds(380, 366, 61, 61);
 
 		String firstN = "";
 		int firstZ = 0;
@@ -88,294 +90,25 @@ public class GameLogic {
 				System.out.println("Spieler " + firstN + " fängt an.");
 			}
 		}
-	
-		int[] start = new int[4]; //steine die nicht im spiel sind
-		int[] feld = new int[40]; //felder im spiel vom roten start gezählt
-		int merks = -1;//merke spieler und start((merks-1)*10)
-		int merk = 0; //merke zahl
-		int[] merke_pos = {0,0,0,0}; //merkt anzahl der figuren im spiel
-		int[][] pos = {{0,0,0,0},{0,0,0,0},{0,0,0,0},{0,0,0,0}};	//position der spielfiguren 
-		int counter = 0;
-		boolean gewinn = false;
-		int[][] haus = {{0,0,0,0},{0,0,0,0},{0,0,0,0},{0,0,0,0}};
-		
-		for(int i=0;i<4;i++)
-		{
-			start[i]=4;
-		}
-		for(int i=0;i<40;i++)
-		{
-			feld[i]=0;
-		}
+		int spieler=0;
 		if(firstN==LoadGui.startScreen.playground.textfield1.getText())
 		{
-			merks=1;
+			spieler=1;
 		}
 		if(firstN==LoadGui.startScreen.playground.textfield2.getText())
 		{
-			merks=2;
+			spieler=2;
 		}
 		if(firstN==LoadGui.startScreen.playground.textfield3.getText())
 		{
-			merks=3;
+			spieler=3;
 		}
 		if(firstN==LoadGui.startScreen.playground.textfield4.getText())
 		{
-			merks=4;
+			spieler=4;
 		}
 		
-		do {
-			
-			if(start[merks-1]==4)
-			{
-				System.out.println(firstN+" hat keinen Stein auf dem Spielfeld er darf dreimal würfeln.");
-				while( (counter<3) && (merk!=6) )
-				{
-					merk=wuerfeln();
-					counter++;
-					System.out.println(firstN+" hat eine "+merk+" gewürfelt.");
-				}
-				counter=0;
-				if(merk==6)
-				{
-					start[merks-1]-=1;
-					merk=wuerfeln();
-					System.out.println(firstN+" kommt raus und hat eine "+merk+" gewürfelt");
-					while(merk==6)
-					{
-						merk=wuerfeln();
-						//test das es im feld bleibt
-						if(((merks==1)&&((pos[merks-1][merke_pos[merks-1]]+merk)>39))||((merks==2) && (((pos[merks-1][merke_pos[merks-1]]+merk)>9) &&(pos[merks-1][merke_pos[merks-1]])<=9)) ||	((merks==3) && (((pos[merks-1][merke_pos[merks-1]]+merk)>19) &&(pos[merks-1][merke_pos[merks-1]])<=19)) || ((merks==4) && (((pos[merks-1][merke_pos[merks-1]]+merk)>29) &&(pos[merks-1][merke_pos[merks-1]])<=29)))
-						{
-							switch(merks)
-							{
-							case 1:
-								if(((pos[merks-1][merke_pos[merks-1]]+merk)-39)<=4)
-								{
-									haus[merks-1][((pos[merks-1][merke_pos[merks-1]]+merk)-39)]=merks;
-									feld[pos[merks-1][merke_pos[merks-1]]]=0;
-									pos[merks-1][merke_pos[merks-1]]=-1;
-									merke_pos[merks-1]-=1;
-								}
-							case 2:
-								if(((pos[merks-1][merke_pos[merks-1]]+merk)-9)<=4)
-								{
-									haus[merks-1][((pos[merks-1][merke_pos[merks-1]]+merk)-9)]=merks;
-									feld[pos[merks-1][merke_pos[merks-1]]]=0;
-									pos[merks-1][merke_pos[merks-1]]=-1;
-									merke_pos[merks-1]-=1;
-								}
-							case 3:
-								if(((pos[merks-1][merke_pos[merks-1]]+merk)-19)<=4)
-								{
-									haus[merks-1][((pos[merks-1][merke_pos[merks-1]]+merk)-19)]=merks;
-									feld[pos[merks-1][merke_pos[merks-1]]]=0;
-									pos[merks-1][merke_pos[merks-1]]=-1;
-									merke_pos[merks-1]-=1;
-								}
-							case 4:
-								if(((pos[merks-1][merke_pos[merks-1]]+merk)-29)<=4)
-								{
-									haus[merks-1][((pos[merks-1][merke_pos[merks-1]]+merk)-29)]=merks;
-									feld[pos[merks-1][merke_pos[merks-1]]]=0;
-									pos[merks-1][merke_pos[merks-1]]=-1;
-									merke_pos[merks-1]-=1;
-								}
-							}
-						}
-						else
-						{
-							if((pos[merks-1][merke_pos[merks-1]]+merk)>39)
-							{
-								pos[merks-1][merke_pos[merks-1]]-=39;
-							}
-							feld[pos[merks-1][merke_pos[merks-1]]]=0;
-							feld[pos[merks-1][merke_pos[merks-1]]+merk]=merks;
-							System.out.println(firstN+" darf nochmal würfeln und hat eine "+merk+" gewürfelt");
-						}
-					}
-					feld[((merks-1)*10)+merk]=merks;
-					pos[merks-1][merke_pos[merks-1]]=((merks-1)*10)+merk;
-					merke_pos[merks-1]+=1;
-				}
-			}
-			else
-			{
-				merk=wuerfeln();
-				System.out.println(firstN+" hat eine "+merk+" gewürfelt.");
-				if((merk==6) && (start[merks-1]!=0))
-				{
-					start[merks-1]-=1;
-					merk=wuerfeln();
-					System.out.println(firstN+" kommt raus und hat eine "+merk+" gewürfelt");
-					feld[((merks-1)*10)+merk]=merks;
-					pos[merks-1][merke_pos[merks-1]]=((merks-1)*10)+merk;
-					merke_pos[merks-1]+=1;
-				}
-				else if((merk==6) && (start[merks-1]==0))
-				{
-					while(merk==6)
-					{
-						merk=wuerfeln();
-						//test das es im feld bleibt
-						if(((merks==1)&&((pos[merks-1][merke_pos[merks-1]]+merk)>39))||((merks==2) && (((pos[merks-1][merke_pos[merks-1]]+merk)>9) &&(pos[merks-1][merke_pos[merks-1]])<=9)) ||	((merks==3) && (((pos[merks-1][merke_pos[merks-1]]+merk)>19) &&(pos[merks-1][merke_pos[merks-1]])<=19)) || ((merks==4) && (((pos[merks-1][merke_pos[merks-1]]+merk)>29) &&(pos[merks-1][merke_pos[merks-1]])<=29)))
-						{
-							switch(merks)
-							{
-							case 1:
-								if(((pos[merks-1][merke_pos[merks-1]]+merk)-39)<=4)
-								{
-									haus[merks-1][((pos[merks-1][merke_pos[merks-1]]+merk)-39)]=merks;
-									feld[pos[merks-1][merke_pos[merks-1]]]=0;
-									pos[merks-1][merke_pos[merks-1]]=-1;
-									merke_pos[merks-1]-=1;
-								}
-							case 2:
-								if(((pos[merks-1][merke_pos[merks-1]]+merk)-9)<=4)
-								{
-									haus[merks-1][((pos[merks-1][merke_pos[merks-1]]+merk)-9)]=merks;
-									feld[pos[merks-1][merke_pos[merks-1]]]=0;
-									pos[merks-1][merke_pos[merks-1]]=-1;
-									merke_pos[merks-1]-=1;
-								}
-							case 3:
-								if(((pos[merks-1][merke_pos[merks-1]]+merk)-19)<=4)
-								{
-									haus[merks-1][((pos[merks-1][merke_pos[merks-1]]+merk)-19)]=merks;
-									feld[pos[merks-1][merke_pos[merks-1]]]=0;
-									pos[merks-1][merke_pos[merks-1]]=-1;
-									merke_pos[merks-1]-=1;
-								}
-							case 4:
-								if(((pos[merks-1][merke_pos[merks-1]]+merk)-29)<=4)
-								{
-									haus[merks-1][((pos[merks-1][merke_pos[merks-1]]+merk)-29)]=merks;
-									feld[pos[merks-1][merke_pos[merks-1]]]=0;
-									pos[merks-1][merke_pos[merks-1]]=-1;
-									merke_pos[merks-1]-=1;
-								}
-							}
-						}
-						else
-						{
-							if((pos[merks-1][merke_pos[merks-1]]+merk)>39)
-							{
-								pos[merks-1][merke_pos[merks-1]]-=39;
-							}
-							System.out.println(firstN+" darf nochmal würfeln und hat eine "+merk+" gewürfelt");
-							feld[pos[merks-1][merke_pos[merks-1]]]=0;
-							feld[pos[merks-1][merke_pos[merks-1]]+merk]=merks;
-						}
-					}
-				}	
-				else
-				{	
-	
-					if(((merks==1)&&((pos[merks-1][merke_pos[merks-1]]+merk)>39))||((merks==2) && (((pos[merks-1][merke_pos[merks-1]]+merk)>9) &&(pos[merks-1][merke_pos[merks-1]])<=9)) ||	((merks==3) && (((pos[merks-1][merke_pos[merks-1]]+merk)>19) &&(pos[merks-1][merke_pos[merks-1]])<=19)) || ((merks==4) && (((pos[merks-1][merke_pos[merks-1]]+merk)>29) &&(pos[merks-1][merke_pos[merks-1]])<=29)))
-					{
-						switch(merks)
-						{
-						case 1:
-							if(((pos[merks-1][merke_pos[merks-1]]+merk)-39)<=4)
-							{
-								haus[merks-1][((pos[merks-1][merke_pos[merks-1]]+merk)-39)]=merks;
-								feld[pos[merks-1][merke_pos[merks-1]]]=0;
-								pos[merks-1][merke_pos[merks-1]]=-1;
-								merke_pos[merks-1]-=1;
-							}
-						case 2:
-							if(((pos[merks-1][merke_pos[merks-1]]+merk)-9)<=4)
-							{
-								haus[merks-1][((pos[merks-1][merke_pos[merks-1]]+merk)-9)]=merks;
-								feld[pos[merks-1][merke_pos[merks-1]]]=0;
-								pos[merks-1][merke_pos[merks-1]]=-1;
-								merke_pos[merks-1]-=1;
-							}
-						case 3:
-							if(((pos[merks-1][merke_pos[merks-1]]+merk)-19)<=4)
-							{
-								haus[merks-1][((pos[merks-1][merke_pos[merks-1]]+merk)-19)]=merks;
-								feld[pos[merks-1][merke_pos[merks-1]]]=0;
-								pos[merks-1][merke_pos[merks-1]]=-1;
-								merke_pos[merks-1]-=1;
-							}
-						case 4:
-							if(((pos[merks-1][merke_pos[merks-1]]+merk)-29)<=4)
-							{
-								haus[merks-1][((pos[merks-1][merke_pos[merks-1]]+merk)-29)]=merks;
-								feld[pos[merks-1][merke_pos[merks-1]]]=0;
-								pos[merks-1][merke_pos[merks-1]]=-1;
-								merke_pos[merks-1]-=1;
-							}
-						}
-					}
-					else
-					{
-						if((pos[merks-1][merke_pos[merks-1]]+merk)>39)
-						{
-							pos[merks-1][merke_pos[merks-1]]-=39;
-						}
-						feld[pos[merks-1][merke_pos[merks-1]]]=0;
-						feld[pos[merks-1][merke_pos[merks-1]]+merk]=merks;
-						pos[merks-1][merke_pos[merks-1]]+=merk;
-					}
-				}
-			}
-			//gewinnbedingung
-			for(int i = 0; i<4;i++)
-			{
-				merk=0;
-				for(int n = 0; n<4;n++)
-				{
-					merk+=haus[i][n];
-				}
-				if(merk==4)
-				{
-					switch(i)
-					{
-					case 1:
-						firstN=LoadGui.startScreen.playground.textfield1.getText();
-						break;
-					case 2:
-						firstN=LoadGui.startScreen.playground.textfield2.getText();
-						break;
-					case 3:
-						firstN=LoadGui.startScreen.playground.textfield3.getText();
-						break;
-					case 4:
-						firstN=LoadGui.startScreen.playground.textfield4.getText();
-						break;
-					}
-					System.out.println(firstN+" hat gewonnen!");
-					gewinn=true;
-				}
-			}
-			
-			//nächster spieler
-			if(merks==4)
-			{
-				merks=1;
-				firstN=LoadGui.startScreen.playground.textfield1.getText();
-			}
-			else
-			{
-				merks++;
-				switch(merks)
-				{
-				case 2:
-					firstN=LoadGui.startScreen.playground.textfield2.getText();
-					break;
-				case 3:
-					firstN=LoadGui.startScreen.playground.textfield3.getText();
-					break;
-				case 4:
-					firstN=LoadGui.startScreen.playground.textfield4.getText();
-					break;
-				}
-			}
-			
-			
-		}while(gewinn==false);
+		game(spieler);
 
 	}
 
@@ -394,8 +127,7 @@ public class GameLogic {
 		}
 	}
 
-	public int[] bubblesort(int[] zusortieren) // Bubblesort Methode zum sortieren eines Feldes mit Integern. Von
-														// groÃŸ nach klein.
+	public int[] bubblesort(int[] zusortieren) // Bubblesort Methode zum sortieren eines Feldes mit Integern. Von// groÃŸ nach klein.													
 	{
 		int temp; // @param Variable zum Zwischenspeichern des Feldes.
 		for (int i = 1; i < zusortieren.length; i++) // Schleife zum durchlaufen des Feldes
@@ -415,4 +147,164 @@ public class GameLogic {
 		return zusortieren;
 	}
 	
+	public int game(int spieler)
+	{
+		boolean gewinn=false;
+		int wuerfel=0,counter=0;
+		spieler-=1;
+		do {
+			if(start[spieler]==4)
+			{
+				while((wuerfel!=6)&&(counter<3))
+				{
+					wuerfel=wuerfeln();
+					System.out.println(name(spieler)+" hat eine "+wuerfel + ".");
+					counter++;
+				}
+				counter=0;
+				if(wuerfel==6)
+				{
+					start[spieler]--;
+					System.out.println(name(spieler)+" kommt raus.");
+					raus(spieler);
+					do {
+						delay(300);
+						wuerfel=wuerfeln();
+						System.out.println(name(spieler)+" hatt eine "+wuerfel+" gewürfelt.");
+						move(spieler,wuerfel);
+					}while(wuerfel==6);
+				}
+			}
+			else
+			{
+				
+			}
+			//gewinn prüfung
+			
+			//spielerwechsel
+			spieler=spielerwechsel(spieler);
+			
+		}while(gewinn==false);
+		spieler+=1;
+		return spieler;
+	}
+	
+	public void raus(int spieler)
+	{
+		switch(spieler)
+		{
+		case 0:
+			LoadGui.startScreen.playground.redone.setBounds(fieldsWhiteX[36], fieldsWhiteY[36], 61, 61);
+			figuren[0][0]=36;
+			break;
+		case 1:
+			LoadGui.startScreen.playground.blueone.setBounds(fieldsWhiteX[6], fieldsWhiteY[6], 61, 61);
+			figuren[1][0]=6;
+			break;
+		case 3:
+			LoadGui.startScreen.playground.greenone.setBounds(fieldsWhiteX[16], fieldsWhiteY[16], 61, 61);
+			figuren[2][0]=16;
+			break;
+		case 2:
+			LoadGui.startScreen.playground.yellowone.setBounds(fieldsWhiteX[26], fieldsWhiteY[26], 61, 61);
+			figuren[3][0]=26;
+			break;
+		}
+		
+	}
+	public String name(int spieler)
+	{
+		String firstN="fehler";
+		if(spieler==0)
+		{
+			firstN=LoadGui.startScreen.playground.textfield1.getText();
+		}
+		else if(spieler==1)
+		{
+			firstN=LoadGui.startScreen.playground.textfield2.getText();
+		}
+		else if(spieler==2)
+		{
+			firstN=LoadGui.startScreen.playground.textfield3.getText();
+		}
+		else if(spieler==3)
+		{
+			firstN=LoadGui.startScreen.playground.textfield4.getText();
+		}
+		return firstN;
+	}
+	public int spielerwechsel(int spieler)
+	{
+		if(spieler==3)
+		{
+			spieler=0;
+		}
+		else
+		{
+			spieler++;
+		}
+		return spieler;
+	}
+	//spieler wechsel!!
+	public void move(int spieler,int x)
+	{
+		
+		switch(spieler)
+		{
+		case 0:
+			figuren[0][0]+=x;
+			if(figuren[0][0]>39)
+			{
+				figuren[0][0]-=39;
+			}
+			schlagen(spieler);
+			LoadGui.startScreen.playground.redone.setBounds(fieldsWhiteX[figuren[0][0]], fieldsWhiteY[figuren[0][0]], 61, 61);
+			break;
+		case 1:
+			figuren[1][0]+=x;
+			if(figuren[1][0]>39)
+			{
+				figuren[1][0]-=39;
+			}
+			schlagen(spieler);
+			LoadGui.startScreen.playground.blueone.setBounds(fieldsWhiteX[figuren[1][0]], fieldsWhiteY[figuren[1][0]], 61, 61);
+			break;
+		case 3:
+			figuren[2][0]+=x;
+			if(figuren[2][0]>39)
+			{
+				figuren[2][0]-=39;
+			}
+			schlagen(spieler);
+			LoadGui.startScreen.playground.greenone.setBounds(fieldsWhiteX[figuren[2][0]], fieldsWhiteY[figuren[2][0]], 61, 61);
+			break;
+		case 2:
+			figuren[3][0]+=x;
+			if(figuren[3][0]>39)
+			{
+				figuren[3][0]-=39;
+			}
+			schlagen(spieler);
+			LoadGui.startScreen.playground.yellowone.setBounds(fieldsWhiteX[figuren[3][0]], fieldsWhiteY[figuren[3][0]], 61, 61);
+			break;
+		}
+	}
+	public int[] schlagen(int spieler)
+	{
+		int[] antwort=new int[2];
+		for(int i=0;i<4;i++)
+		{
+			for(int n=0;n<4;n++)
+			{
+				if(figuren[i][n]==figuren[spieler][0])//spielerwechsel
+				{
+					antwort[0]=i;
+					antwort[1]=n;
+					figuren[i][n]=0;
+					start[i]++;
+				}
+			}
+		}
+		return antwort;
+	}
 }
