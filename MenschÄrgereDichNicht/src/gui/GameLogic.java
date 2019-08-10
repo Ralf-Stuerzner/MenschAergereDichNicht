@@ -6,7 +6,7 @@ import java.util.Random;
 public class GameLogic {
 
 	private int randNum;
-	private int figuren[][]=new int[4][4];
+	private int figuren[][]= {{0,0,0,0},{0,0,0,0},{0,0,0,0},{0,0,0,0}};
 	private int[] start= {4,4,4,4};
 	public int[] fieldsWhiteX = { 380, 380, 380, 380, 380, 467, 555, 555, 555, 555, 555, 642, 724, 806, 888, 888,
 			888, 806, 724, 642, 555, 555, 555, 555, 555, 467, 380, 380, 380, 380, 380, 293, 211, 126, 38, 38, 38, 124,
@@ -150,7 +150,7 @@ public class GameLogic {
 	public int game(int spieler)
 	{
 		boolean gewinn=false;
-		int wuerfel=0,counter=0;
+		int wuerfel=0,counter=0,x=0;
 		spieler-=1;
 		do {
 			if(start[spieler]==4)
@@ -158,7 +158,7 @@ public class GameLogic {
 				while((wuerfel!=6)&&(counter<3))
 				{
 					wuerfel=wuerfeln();
-					System.out.println(name(spieler)+" hat eine "+wuerfel + ".");
+					System.out.println(name(spieler)+" hat eine "+wuerfel + "gewürfelt.");
 					counter++;
 				}
 				counter=0;
@@ -166,9 +166,10 @@ public class GameLogic {
 				{
 					start[spieler]--;
 					System.out.println(name(spieler)+" kommt raus.");
+					delay(600);
 					raus(spieler);
 					do {
-						delay(300);
+						delay(600);
 						wuerfel=wuerfeln();
 						System.out.println(name(spieler)+" hatt eine "+wuerfel+" gewürfelt.");
 						move(spieler,wuerfel);
@@ -177,10 +178,17 @@ public class GameLogic {
 			}
 			else
 			{
-				
+				wuerfel=wuerfeln();
+				System.out.println(name(spieler)+" hat eine "+wuerfel + " gewürfelt.");
+				delay(600);
+				move(spieler,wuerfel);
 			}
 			//gewinn prüfung
-			
+			x++;
+			if(x==50)
+			{
+				gewinn=true;
+			}
 			//spielerwechsel
 			spieler=spielerwechsel(spieler);
 			
@@ -253,58 +261,76 @@ public class GameLogic {
 		{
 		case 0:
 			figuren[0][0]+=x;
-			if(figuren[0][0]>39)
+			if(figuren[0][0]>=39)
 			{
 				figuren[0][0]-=39;
 			}
+			
 			schlagen(spieler);
 			LoadGui.startScreen.playground.redone.setBounds(fieldsWhiteX[figuren[0][0]], fieldsWhiteY[figuren[0][0]], 61, 61);
 			break;
 		case 1:
 			figuren[1][0]+=x;
-			if(figuren[1][0]>39)
+			if(figuren[1][0]>=39)
 			{
 				figuren[1][0]-=39;
 			}
+		
 			schlagen(spieler);
 			LoadGui.startScreen.playground.blueone.setBounds(fieldsWhiteX[figuren[1][0]], fieldsWhiteY[figuren[1][0]], 61, 61);
 			break;
 		case 3:
 			figuren[2][0]+=x;
-			if(figuren[2][0]>39)
+			if(figuren[2][0]>=39)
 			{
 				figuren[2][0]-=39;
 			}
+		;
 			schlagen(spieler);
 			LoadGui.startScreen.playground.greenone.setBounds(fieldsWhiteX[figuren[2][0]], fieldsWhiteY[figuren[2][0]], 61, 61);
 			break;
 		case 2:
 			figuren[3][0]+=x;
-			if(figuren[3][0]>39)
+			if(figuren[3][0]>=39)
 			{
 				figuren[3][0]-=39;
 			}
+		
 			schlagen(spieler);
 			LoadGui.startScreen.playground.yellowone.setBounds(fieldsWhiteX[figuren[3][0]], fieldsWhiteY[figuren[3][0]], 61, 61);
 			break;
 		}
 	}
-	public int[] schlagen(int spieler)
+	public void schlagen(int spieler)
 	{
-		int[] antwort=new int[2];
 		for(int i=0;i<4;i++)
 		{
+
 			for(int n=0;n<4;n++)
 			{
-				if(figuren[i][n]==figuren[spieler][0])//spielerwechsel
+
+				if((figuren[i][n]!=0)&&(figuren[i][n]==figuren[spieler][0])&&(i!=spieler))//spielerwechsel
 				{
-					antwort[0]=i;
-					antwort[1]=n;
 					figuren[i][n]=0;
 					start[i]++;
+					System.out.println(name(spieler)+" schlägt "+name(i));
+					switch(i)
+					{
+					case 0:
+						LoadGui.startScreen.playground.redone.setBounds(10, 10, 61, 61);
+						break;
+					case 1:
+						LoadGui.startScreen.playground.blueone.setBounds(840, 10, 61, 61);
+						break;
+					case 2:
+						LoadGui.startScreen.playground.yellowone.setBounds(10, 820, 61, 61);
+						break;
+					case 3:
+						LoadGui.startScreen.playground.greenone.setBounds(840, 820, 61, 61);
+						break;
+					}
 				}
 			}
 		}
-		return antwort;
 	}
 }
