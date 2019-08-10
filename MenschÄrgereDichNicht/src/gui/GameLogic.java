@@ -8,6 +8,7 @@ public class GameLogic {
 	private int randNum;
 	private int figuren[][]= {{0,0,0,0},{0,0,0,0},{0,0,0,0},{0,0,0,0}};
 	private int[] start= {4,4,4,4};
+	private int[][] haus = {{0,0,0,0},{0,0,0,0},{0,0,0,0},{0,0,0,0}};
 	public int[] fieldsWhiteX = { 380, 380, 380, 380, 380, 467, 555, 555, 555, 555, 555, 642, 724, 806, 888, 888,
 			888, 806, 724, 642, 555, 555, 555, 555, 555, 467, 380, 380, 380, 380, 380, 293, 211, 126, 38, 38, 38, 124,
 			208, 292 };
@@ -107,7 +108,8 @@ public class GameLogic {
 		{
 			spieler=4;
 		}
-		
+		LoadGui.startScreen.playground.blueone.setBounds(467, 366, 61, 61);
+
 		game(spieler);
 
 	}
@@ -150,7 +152,7 @@ public class GameLogic {
 	public int game(int spieler)
 	{
 		boolean gewinn=false;
-		int wuerfel=0,counter=0,x=0;
+		int wuerfel=0,counter=0;
 		spieler-=1;
 		do {
 			if(start[spieler]==4)
@@ -166,13 +168,16 @@ public class GameLogic {
 				{
 					start[spieler]--;
 					System.out.println(name(spieler)+" kommt raus.");
-					delay(600);
+					delay(1000);
 					raus(spieler);
 					do {
-						delay(600);
+						delay(1000);
 						wuerfel=wuerfeln();
 						System.out.println(name(spieler)+" hatt eine "+wuerfel+" gewürfelt.");
-						move(spieler,wuerfel);
+						if(haus(spieler,wuerfel))
+						{
+							move(spieler,wuerfel);
+						}
 					}while(wuerfel==6);
 				}
 			}
@@ -180,13 +185,16 @@ public class GameLogic {
 			{
 				wuerfel=wuerfeln();
 				System.out.println(name(spieler)+" hat eine "+wuerfel + " gewürfelt.");
-				delay(600);
-				move(spieler,wuerfel);
+				delay(1000);
+				if(haus(spieler,wuerfel))
+				{
+					move(spieler,wuerfel);
+				}
 			}
 			//gewinn prüfung
-			x++;
-			if(x==50)
+			if(haus[spieler][0]+haus[spieler][1]+haus[spieler][2]+haus[spieler][3]==1)
 			{
+				System.out.println(name(spieler)+"gewinnt");
 				gewinn=true;
 			}
 			//spielerwechsel
@@ -253,51 +261,63 @@ public class GameLogic {
 		}
 		return spieler;
 	}
-	//spieler wechsel!!
+	//figuren wechsel!!
 	public void move(int spieler,int x)
 	{
 		
 		switch(spieler)
 		{
 		case 0:
-			figuren[0][0]+=x;
-			if(figuren[0][0]>=39)
-			{
-				figuren[0][0]-=39;
-			}
+
+				figuren[0][0]+=x;
+		
+				if(figuren[0][0]>=39)
+				{
+					figuren[0][0]-=39;
+				}
 			
-			schlagen(spieler);
-			LoadGui.startScreen.playground.redone.setBounds(fieldsWhiteX[figuren[0][0]], fieldsWhiteY[figuren[0][0]], 61, 61);
+				schlagen(spieler);
+				LoadGui.startScreen.playground.redone.setBounds(fieldsWhiteX[figuren[0][0]], fieldsWhiteY[figuren[0][0]], 61, 61);
+	
 			break;
 		case 1:
-			figuren[1][0]+=x;
-			if(figuren[1][0]>=39)
-			{
-				figuren[1][0]-=39;
-			}
+
+				haus(spieler,x);
+				figuren[1][0]+=x;
+				if(figuren[1][0]>=39)
+				{
+					figuren[1][0]-=39;
+				}
 		
-			schlagen(spieler);
-			LoadGui.startScreen.playground.blueone.setBounds(fieldsWhiteX[figuren[1][0]], fieldsWhiteY[figuren[1][0]], 61, 61);
+				schlagen(spieler);
+				LoadGui.startScreen.playground.blueone.setBounds(fieldsWhiteX[figuren[1][0]], fieldsWhiteY[figuren[1][0]], 61, 61);
+	
 			break;
 		case 3:
-			figuren[2][0]+=x;
-			if(figuren[2][0]>=39)
-			{
-				figuren[2][0]-=39;
-			}
-		;
-			schlagen(spieler);
-			LoadGui.startScreen.playground.greenone.setBounds(fieldsWhiteX[figuren[2][0]], fieldsWhiteY[figuren[2][0]], 61, 61);
+
+				haus(spieler,x);
+				figuren[2][0]+=x;
+				if(figuren[2][0]>=39)
+				{
+					figuren[2][0]-=39;
+				}
+
+				schlagen(spieler);
+				LoadGui.startScreen.playground.greenone.setBounds(fieldsWhiteX[figuren[2][0]], fieldsWhiteY[figuren[2][0]], 61, 61);
+	
 			break;
 		case 2:
-			figuren[3][0]+=x;
-			if(figuren[3][0]>=39)
-			{
-				figuren[3][0]-=39;
-			}
+
 		
-			schlagen(spieler);
-			LoadGui.startScreen.playground.yellowone.setBounds(fieldsWhiteX[figuren[3][0]], fieldsWhiteY[figuren[3][0]], 61, 61);
+				figuren[3][0]+=x;
+				if(figuren[3][0]>=39)
+				{
+					figuren[3][0]-=39;
+				}
+		
+				schlagen(spieler);
+				LoadGui.startScreen.playground.yellowone.setBounds(fieldsWhiteX[figuren[3][0]], fieldsWhiteY[figuren[3][0]], 61, 61);
+	
 			break;
 		}
 	}
@@ -309,7 +329,7 @@ public class GameLogic {
 			for(int n=0;n<4;n++)
 			{
 
-				if((figuren[i][n]!=0)&&(figuren[i][n]==figuren[spieler][0])&&(i!=spieler))//spielerwechsel
+				if((figuren[i][n]!=0)&&(figuren[i][n]==figuren[spieler][0])&&(i!=spieler))//figurenwechsel
 				{
 					figuren[i][n]=0;
 					start[i]++;
@@ -332,5 +352,121 @@ public class GameLogic {
 				}
 			}
 		}
+	}
+	public boolean haus(int spieler,int wuerfel)
+	{
+		boolean aus=true;
+		switch(spieler)
+		{
+		case 0:
+			if((figuren[spieler][0]<=35)&&((figuren[spieler][0]+wuerfel)>35))
+			{
+				if(((figuren[spieler][0]+wuerfel-35)<4)&&((figuren[spieler][0]+wuerfel-35)>=0))
+				{
+					haus[spieler][figuren[spieler][0]+wuerfel-35]=1;
+					System.out.println(name(spieler)+" hatt einen Stein im Haus auf Stelle "+(figuren[spieler][0]+wuerfel-35));
+					switch(figuren[spieler][0]+wuerfel-35)
+					{
+					case 0:
+						LoadGui.startScreen.playground.redone.setBounds(124, 454, 61, 61);
+						break;
+					case 1:
+						LoadGui.startScreen.playground.redone.setBounds(208, 454, 61, 61);
+						break;
+					case 2:
+						LoadGui.startScreen.playground.redone.setBounds(292, 454, 61, 61);
+						break;
+					case 3:
+						LoadGui.startScreen.playground.redone.setBounds(380, 454, 61, 61);
+						break;
+					}
+					figuren[spieler][0]=0;
+					aus=false;
+				}
+			}
+			break;
+		case 1:
+			if((figuren[spieler][0]<=5)&&((figuren[spieler][0]+wuerfel)>5))
+			{
+				if(((figuren[spieler][0]+wuerfel-5)<4)&&((figuren[spieler][0]+wuerfel-5)>=0))
+				{
+					haus[spieler][figuren[spieler][0]+wuerfel-5]=1;
+					System.out.println(name(spieler)+" hatt einen Stein im Haus auf Stelle "+(figuren[spieler][0]+wuerfel-5));
+					switch(figuren[spieler][0]+wuerfel-5)
+					{
+					case 0:
+						LoadGui.startScreen.playground.blueone.setBounds(467, 120, 61, 61);
+						break;
+					case 1:
+						LoadGui.startScreen.playground.blueone.setBounds(467, 202, 61, 61);
+						break;
+					case 2:
+						LoadGui.startScreen.playground.blueone.setBounds(467, 284, 61, 61);
+						break;
+					case 3:
+						LoadGui.startScreen.playground.blueone.setBounds(467, 366, 61, 61);
+						break;
+					}
+					figuren[spieler][0]=0;
+					aus=false;
+				}
+			}
+			break;
+		case 2:
+			if((figuren[spieler][0]<=25)&&((figuren[spieler][0]+wuerfel)>25))
+			{
+				if(((figuren[spieler][0]+wuerfel-25)<4)&&((figuren[spieler][0]+wuerfel-25)>=0))
+				{
+					haus[spieler][figuren[spieler][0]+wuerfel-25]=1;
+					System.out.println(name(spieler)+" hatt einen Stein im Haus auf Stelle "+(figuren[spieler][0]+wuerfel-25));
+					switch(figuren[spieler][0]+wuerfel-25)
+					{
+					case 0:
+						LoadGui.startScreen.playground.yellowone.setBounds(467, 788, 61, 61);
+						break;
+					case 1:
+						LoadGui.startScreen.playground.yellowone.setBounds(467, 706, 61, 61);
+						break;
+					case 2:
+						LoadGui.startScreen.playground.yellowone.setBounds(467, 624, 61, 61);
+						break;
+					case 3:
+						LoadGui.startScreen.playground.yellowone.setBounds(467, 542, 61, 61);
+						break;
+					}
+					figuren[spieler][0]=0;
+					aus=false;
+				}
+			}
+			break;
+		case 3:
+			if((figuren[spieler][0]<=15)&&((figuren[spieler][0]+wuerfel)>15))
+			{
+				if(((figuren[spieler][0]+wuerfel-15)<4)&&((figuren[spieler][0]+wuerfel-15)>=0))
+				{
+					haus[spieler][figuren[spieler][0]+wuerfel-15]=1;
+					System.out.println(name(spieler)+" hatt einen Stein im Haus auf Stelle "+(figuren[spieler][0]+wuerfel-15));
+					switch(figuren[spieler][0]+wuerfel-15)
+					{
+					case 0:
+						LoadGui.startScreen.playground.greenone.setBounds(806, 454, 61, 61);
+						break;
+					case 1:
+						LoadGui.startScreen.playground.greenone.setBounds(724, 454, 61, 61);
+						break;
+					case 2:
+						LoadGui.startScreen.playground.greenone.setBounds(642, 454, 61, 61);
+						break;
+					case 3:
+						LoadGui.startScreen.playground.greenone.setBounds(555, 454, 61, 61);
+						break;
+					}
+					figuren[spieler][0]=0;
+					aus=false;
+				}
+			}
+			break;
+		}
+		return aus;
 	}
 }
