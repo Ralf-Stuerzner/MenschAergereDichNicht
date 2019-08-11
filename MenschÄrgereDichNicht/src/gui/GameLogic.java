@@ -192,7 +192,7 @@ private int randNum;
 				{
 					wuerfel=wuerfeln();
 					
-					if((start[spieler]!=0)&&(wuerfel==6))
+					if((start[spieler]>0)&&(wuerfel==6))
 					{
 						do {
 							System.out.println(name(spieler)+" kommt raus.");
