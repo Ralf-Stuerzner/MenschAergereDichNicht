@@ -157,6 +157,7 @@ public class GameLogic {
 		do {
 			if(start[spieler]==4)
 			{
+				System.out.println(name(spieler)+" darf drei mal würfeln.");
 				while((wuerfel!=6)&&(counter<3))
 				{
 					wuerfel=wuerfeln();
