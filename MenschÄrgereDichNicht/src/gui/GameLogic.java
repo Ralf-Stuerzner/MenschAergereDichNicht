@@ -8,6 +8,7 @@ private int randNum;
 		private int figuren[][]= {{-10,-10,-10,-10},{-10,-10,-10,-10},{-10,-10,-10,-10},{-10,-10,-10,-10}};
 		private int[] start= {4,4,4,4};
 		private int[][] haus = {{-1,-1,-1,-1},{-1,-1,-1,-1},{-1,-1,-1,-1},{-1,-1,-1,-1}};
+		private int[] hausvoll = {0,0,0,0};
 		private int[][] hausx = {{124,208,292,380},{467,467,467,467},{467,467,467,467},{806,724,642,560}};
 		private int[][] hausy = {{454,454,454,454},{120,202,284,366},{788,706,624,542},{454,454,454,454}};
 		public int[] fieldsWhiteX = { 380, 380, 380, 380, 380, 467, 555, 555, 555, 555, 555, 642, 724, 806, 888, 888,
@@ -157,9 +158,10 @@ private int randNum;
 			int wuerfel=0,counter=0,x=0;
 			spieler-=1;
 			do {
-				figurenauswahl(spieler);
+				
 				System.out.println(name(spieler)+" mit figur "+ figur);
-				if(start[spieler]==4)
+				System.out.println("");
+				if((start[spieler]==4)||((hausvoll(spieler)&&((start[spieler]+hausvoll[spieler])==4))))
 				{
 					while((wuerfel!=6)&&(counter<3))
 					{
@@ -219,6 +221,7 @@ private int randNum;
 							{
 								if(haus(spieler,wuerfel))
 								{
+									figurenauswahl(spieler,wuerfel);
 									move(spieler,wuerfel);
 								}
 							}
@@ -366,8 +369,6 @@ private int randNum;
 		
 				break;
 			case 1:
-
-				
 					figuren[1][figur]+=x;
 					if(figuren[1][figur]>39)
 					{
@@ -738,7 +739,7 @@ private int randNum;
 			}
 			return aus;
 		}
-		public void figurenauswahl(int s)
+		public void figurenauswahl(int s,int w)
 		{
 			
 			int x=0;
@@ -893,11 +894,13 @@ private int randNum;
 			int a;
 			for(int i=0;i<4;i++)
 			{
-				if(haus[spieler][i]!=-1)
+				if((haus[spieler][i]!=-1))
 				{
-					if((haus[spieler][i]+x)<4)
+					if(((haus[spieler][i]+x)<4)&&(haus[spieler][haus[spieler][i]+x]==-1))
 					{
+						
 						a=haus[spieler][i]+x;
+						haus[spieler][i]=-1;
 						haus[spieler][a]=a;
 						aus=false;
 						switch(spieler)
@@ -974,6 +977,49 @@ private int randNum;
 					}
 				}
 			}
+			return aus;
+		}
+		public boolean hausvoll(int spieler)
+		{
+			boolean aus=true;
+			int lücke=0;
+			if(haus[spieler][3]!=-1)
+			{
+				hausvoll[spieler]++;
+				if(haus[spieler][2]!=-1)
+				{
+					hausvoll[spieler]++;
+					if(haus[spieler][1]!=-1)
+					{
+						hausvoll[spieler]++;
+						if(lücke!=0)
+						{
+							aus=false;
+						}
+						if(haus[spieler][0]!=-1)
+						{
+							hausvoll[spieler]++;
+							if(lücke!=0)
+							{
+								aus=false;
+							}
+						}
+					}
+					else
+					{
+						lücke++;
+					}
+				}
+				else
+				{
+					lücke++;
+				}
+			}
+			else
+			{
+				aus=false;
+			}
+			
 			return aus;
 		}
 }
