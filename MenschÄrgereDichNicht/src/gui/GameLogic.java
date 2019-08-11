@@ -165,7 +165,7 @@ private int randNum;
 					while((wuerfel!=6)&&(counter<3))
 					{
 						wuerfel=wuerfeln();
-						System.out.println(name(spieler)+" hat eine "+wuerfel + "gewürfelt.");
+						System.out.println(name(spieler)+" hat eine "+wuerfel + " gewürfelt.");
 						counter++;
 					}
 					counter=0;
