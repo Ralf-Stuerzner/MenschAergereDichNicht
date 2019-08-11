@@ -220,9 +220,9 @@ private int randNum;
 							{
 								if(haus(spieler,wuerfel))
 								{
-									if()
 									figurenauswahl(spieler,wuerfel);
-									move(spieler,wuerfel);
+									if((figuren[spieler][figur]+wuerfel)>=0)
+										move(spieler,wuerfel);
 								}
 							}
 							if(wuerfel==6)
@@ -418,7 +418,7 @@ private int randNum;
 				for(int n=0;n<4;n++)
 				{
 
-					if((figuren[i][n]!=-10)&&(figuren[i][n]==figuren[spieler][figur])&&(i!=spieler))//figurenwechsel
+					if((figuren[i][n]>=0)&&(figuren[i][n]==figuren[spieler][figur])&&(i!=spieler))//figurenwechsel
 					{
 						figuren[i][n]=-10;
 						start[i]++;
