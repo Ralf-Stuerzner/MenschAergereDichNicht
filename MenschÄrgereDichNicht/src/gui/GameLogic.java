@@ -1,33 +1,54 @@
 package gui;
 
+import java.awt.Image;
 import java.util.Date;
 import java.util.Random;
 
 public class GameLogic {
 
 	private int randNum;
-	private int figuren[][]= {{0,0,0,0},{0,0,0,0},{0,0,0,0},{0,0,0,0}};
-	private int[] start= {4,4,4,4};
-	private int[][] haus = {{0,0,0,0},{0,0,0,0},{0,0,0,0},{0,0,0,0}};
-	public int[] fieldsWhiteX = { 380, 380, 380, 380, 380, 467, 555, 555, 555, 555, 555, 642, 724, 806, 888, 888,
-			888, 806, 724, 642, 555, 555, 555, 555, 555, 467, 380, 380, 380, 380, 380, 293, 211, 126, 38, 38, 38, 124,
-			208, 292 };
-	public int[] fieldsWhiteY = { 366, 284, 202, 120, 38, 38, 38, 120, 202, 284, 366, 366, 366, 366, 366, 454,
-			542, 542, 542, 542, 542, 624, 706, 788, 870, 870, 870, 788, 706, 624, 542, 542, 542, 542, 542, 454, 366,
-			366, 366 };
-	public String[] gameStatus = new String[39];
+	public int[] fieldsWhiteX = { 380, 380, 380, 380, 380, 467, 555, 555, 555, 555, 555, 642, 724, 806, 888, 888, 888,
+			806, 724, 642, 555, 555, 555, 555, 555, 467, 380, 380, 380, 380, 380, 293, 211, 126, 38, 38, 38, 124, 208,
+			292 };
+	public int[] fieldsWhiteY = { 366, 284, 202, 120, 38, 38, 38, 120, 202, 284, 366, 366, 366, 366, 366, 454, 542, 542,
+			542, 542, 542, 624, 706, 788, 870, 870, 870, 788, 706, 624, 542, 542, 542, 542, 542, 454, 366, 366, 366,
+			366 };
+
+	public int[] redwinfieldX = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 293, 211, 126, 38, 38, 124, 208, 292, 380 };
+	public int[] redwinfieldY = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 542, 542, 542, 542, 454, 454, 454, 454, 454 };
+	public int[] bluewinfieldX = { 0, 380, 380, 380, 380, 467, 467, 467, 467, 467 };
+	public int[] bluewinfieldY = { 0, 284, 202, 120, 38, 38, 120, 202, 284, 366 };
+	public int[] greenwinfieldX = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 642, 724, 806, 888, 888, 806, 724, 642, 555 };
+	public int[] greenwinfieldY = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 366, 366, 366, 366, 454, 454, 454, 454, 454 };
+	public int[] yellowwinfieldX = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 555, 555, 555, 555,
+			467, 467, 467, 467, 467 };
+	public int[] yellowwinfieldY = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 542, 624, 706, 788,
+			870, 870, 788, 706, 624, 542 };
+
+	public boolean[] belegteSpielfelder = { false, false, false, false, false, false, false, false, false, false, false,
+			false, false, false, false, false // länge 41
+			, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false,
+			false, false, false, false, false, false, false, false, false };
 
 	public void logic() {
-		System.out.println("\tWillkommen bei dem Spiel Mensch �rgere Dich nicht\n\n");
+		System.out.println("\tWillkommen bei dem Spiel Mensch Ärgere Dich nicht\n\n");
 		delay(1000);
 		System.out.println(" Spieler 1 : " + LoadGui.startScreen.playground.textfield1.getText());
 		System.out.println(" Spieler 2 : " + LoadGui.startScreen.playground.textfield2.getText());
 		System.out.println(" Spieler 3 : " + LoadGui.startScreen.playground.textfield3.getText());
 		System.out.println(" Spieler 4 : " + LoadGui.startScreen.playground.textfield4.getText());
-		System.out.println("\nDas Spiel geht los. Als erstes w�rfeln die Spieler darum wer anf�ngt.");
+		System.out.println("\nAls erstes setzen alle Spieler eine Figur auf das Startfeld");
+		LoadGui.startScreen.playground.redone.setBounds(fieldsWhiteX[36], fieldsWhiteY[36], 61, 61);
+		delay(1000);
+		LoadGui.startScreen.playground.blueone.setBounds(fieldsWhiteX[6], fieldsWhiteY[6], 61, 61);
+		delay(1000);
+		LoadGui.startScreen.playground.greenone.setBounds(fieldsWhiteX[16], fieldsWhiteY[16], 61, 61);
+		delay(1000);
+		LoadGui.startScreen.playground.yellowone.setBounds(fieldsWhiteX[26], fieldsWhiteY[26], 61, 61);
 		delay(3000);
-//		LoadGui.startScreen.playground.greenone.setBounds(380, 366, 61, 61);
-
+		System.out.println("\nNun würfeln die Spieler darum wer anfängt\n");
 		String firstN = "";
 		int firstZ = 0;
 		int[] duplikate = { 0, 0, 1, 1 };
@@ -46,16 +67,16 @@ public class GameLogic {
 				wuerfelSp[x] = wuerfel[x];
 			}
 			System.out.println(" " + LoadGui.startScreen.playground.textfield1.getText() + " hat eine " + wuerfel[0]
-					+ " gew�rfelt.  ");
+					+ " gewürfelt.  ");
 			System.out.println(" " + LoadGui.startScreen.playground.textfield2.getText() + " hat eine " + wuerfel[1]
-					+ " gew�rfelt. ");
+					+ " gewürfelt. ");
 			System.out.println(" " + LoadGui.startScreen.playground.textfield3.getText() + " hat eine " + wuerfel[2]
-					+ " gew�rfelt. ");
+					+ " gewürfelt. ");
 			System.out.println(" " + LoadGui.startScreen.playground.textfield4.getText() + " hat eine " + wuerfel[3]
-					+ " gew�rfelt. ");
+					+ " gewürfelt. ");
 
 			bubblesort(wuerfel);
-			System.out.println("\n " + wuerfel[0] + " ist die h�chste Augenzahl");
+			System.out.println("\n " + wuerfel[0] + " ist die höchste Augenzahl");
 			// auf Duplikate prüfen
 			int u = 0;
 			firstZ = 0;
@@ -85,40 +106,454 @@ public class GameLogic {
 			}
 			// System.out.println(duplikate[0]+""+duplikate[1]+""+duplikate[2]+""+duplikate[3]);
 			if (u >= 2) {
-				System.out.println("Duplikate gefunden, es wird neu gew�rfelt."); // Baustelle funktioniert noch nicht
+				System.out.println("\nDuplikate gefunden, es wird neu gewürfelt."); // Baustelle funktioniert noch nicht
 			} else {
-				System.out.println("Das Spiel geht los");
-				System.out.println("Spieler " + firstN + " f�ngt an.");
+				System.out.println("\nDas Spiel geht los");
+				System.out.println("Spieler " + firstN + " fängt an.");
 			}
 		}
-		int spieler=0;
-		if(firstN==LoadGui.startScreen.playground.textfield1.getText())
-		{
-			spieler=1;
-		}
-		if(firstN==LoadGui.startScreen.playground.textfield2.getText())
-		{
-			spieler=2;
-		}
-		if(firstN==LoadGui.startScreen.playground.textfield3.getText())
-		{
-			spieler=3;
-		}
-		if(firstN==LoadGui.startScreen.playground.textfield4.getText())
-		{
-			spieler=4;
-		}
-		
+		int w = wuerfeln();
+		int redone = 36;
+		int redtwo = 36;
+		int two = 6;
+		int three = 16;
+		int foure = 26;
+		int redoneentfernung = 43;
+		int redtwoentfernung = 43;
+		int twoentfernung = 43;
+		int threeentfernung = 43;
+		int foureentfernung = 43;
+		int rotspielerdraußen = 1;
+		boolean rot1imZiel = false;
+		int num;
+		boolean b = true;
+		while (b == true) {
+			w = wuerfeln();
+			delay(1000);
+			System.out.println("Spieler " + firstN + " hat eine " + w + " gewürfelt.");
+			switch (firstZ) {
+			case 1:
+				try {
+					// Falls Spieler rot eine Sechs würfelt und Startfeld leer ist
+					if (rotspielerdraußen == 1 && belegteSpielfelder[36] == false && w == 6) {
+						System.out.println(LoadGui.startScreen.playground.textfield1.getText()
+								+ " hat eine 6 gewürfelt und darf eine Figur raussetzen.");
+						LoadGui.startScreen.playground.redtwo.setBounds(fieldsWhiteX[redtwo], fieldsWhiteY[redtwo], 61,
+								61);
+						belegteSpielfelder[redtwo] = true;
+						rotspielerdraußen++;
+						delay(1000);
+						System.out
+								.println(LoadGui.startScreen.playground.textfield1.getText() + " darf nochmal würfeln");
+						w = wuerfeln();
+						belegteSpielfelder[redtwo] = false;
+						redtwo = redtwo + w;
+						if (redtwo > 39) {
+							redtwo = redtwo - 40;
+						}
+						if (belegteSpielfelder[redtwo] == false) {
+							LoadGui.startScreen.playground.redtwo.setBounds(fieldsWhiteX[redtwo], fieldsWhiteY[redtwo],
+									61, 61);
+							redtwoentfernung = redtwoentfernung - w;
+							belegteSpielfelder[redtwo] = true;
+						} else {
+							System.out.println("Dieses Feld ist belegt, daher Zug nicht möglich.");
+						}
+						firstZ++;
+						firstN = LoadGui.startScreen.playground.textfield2.getText();
+						break;
+					}
+					// wenn 2 spieler von rot draußen sind
+					if (rotspielerdraußen == 2) {
+//						num = rand.nextInt(2);
+						num = zufall();
+						if(num==1) // spieler eins wird bewegt
+						{
+							if(rot1imZiel==true)
+							{
+								firstZ++;
+								firstN = LoadGui.startScreen.playground.textfield2.getText();
+								break;
+							}
+						if (redoneentfernung <= 9) {
+							belegteSpielfelder[redone] = false;
+							redone = redone + w;
+							if (belegteSpielfelder[redone] == false) {
+								LoadGui.startScreen.playground.redone.setBounds(redwinfieldX[redone],
+										redwinfieldY[redone], 61, 61);
+								belegteSpielfelder[redone] = true;
+								redoneentfernung = redoneentfernung - w;
+							} else {
+								System.out.println("Dieses Feld ist belegt, daher Zug nicht möglich.");
+							}
+							firstZ++;
+							firstN = LoadGui.startScreen.playground.textfield2.getText();
+							if (redoneentfernung == 0) {
+								System.out.println("\n\nDie erste Figur von"
+										+ LoadGui.startScreen.playground.textfield1.getText() + " ist im Ziel");
+								b = false;
+							}
+							break;
+						}
+						// out of bounds exception
 
-		game(spieler);
-
+						// normaler Spielzug von Spieler eins
+						belegteSpielfelder[redone] = false;
+						redone = redone + w;
+						if (redone > 39) {
+							redone = redone - 40;
+						}
+						if (belegteSpielfelder[redone] == false) {
+							LoadGui.startScreen.playground.redone.setBounds(fieldsWhiteX[redone], fieldsWhiteY[redone],
+									61, 61);
+							belegteSpielfelder[redone] = true;
+							redoneentfernung = redoneentfernung - w;
+						} else {
+							System.out.println("Dieses Feld ist belegt, daher Zug nicht möglich.");
+							redone = redone - w;
+							if(redone<0)
+							{
+								redone = redone + 40;
+							}
+						}
+						firstZ++;
+						firstN = LoadGui.startScreen.playground.textfield2.getText();
+						break;
+						}
+						else { //spielfigur 2 wird bewegt
+							if (redtwoentfernung <= 9) {
+								belegteSpielfelder[redtwo] = false;
+								redtwo = redtwo + w;
+								if (belegteSpielfelder[redtwo] == false) {
+									LoadGui.startScreen.playground.redtwo.setBounds(redwinfieldX[redtwo],
+											redwinfieldY[redtwo], 61, 61);
+									belegteSpielfelder[redtwo] = true;
+									redtwoentfernung = redtwoentfernung - w;
+								} else {
+									System.out.println("Dieses Feld ist belegt, daher Zug nicht möglich.");
+								}
+								firstZ++;
+								firstN = LoadGui.startScreen.playground.textfield2.getText();
+								if (redtwoentfernung == 0) {
+									System.out.println("\n\nDie erste Figur von"
+											+ LoadGui.startScreen.playground.textfield1.getText() + " ist im Ziel");
+									b = false;
+								}
+								break;
+							}
+							belegteSpielfelder[redtwo] = false;
+							redtwo = redtwo + w;
+							if (redtwo > 39) {
+								redtwo = redtwo - 40;
+							}
+							if (belegteSpielfelder[redtwo] == false) {
+								LoadGui.startScreen.playground.redtwo.setBounds(fieldsWhiteX[redtwo], fieldsWhiteY[redtwo],
+										61, 61);
+								belegteSpielfelder[redtwo] = true;
+								redtwoentfernung = redtwoentfernung - w;
+							} else {
+								System.out.println("Dieses Feld ist belegt, daher Zug nicht möglich.");
+								redtwo = redtwo - w;
+								if(redtwo<0)
+								{
+									redtwo = redtwo + 40;
+								}
+							}
+							firstZ++;
+							firstN = LoadGui.startScreen.playground.textfield2.getText();
+							break;
+							}
+						}
+					//wenn nur eine Spielfigur draußen ist
+				if(rotspielerdraußen==1)
+				{
+				if (redoneentfernung <= 9) {
+					belegteSpielfelder[redone] = false;
+					redone = redone + w;
+					if (belegteSpielfelder[redone] == false) {
+						LoadGui.startScreen.playground.redone.setBounds(redwinfieldX[redone],
+								redwinfieldY[redone], 61, 61);
+						belegteSpielfelder[redone] = true;
+						redoneentfernung = redoneentfernung - w;
+					} else {
+						System.out.println("Dieses Feld ist belegt, daher Zug nicht möglich.");
+					}
+					firstZ++;
+					firstN = LoadGui.startScreen.playground.textfield2.getText();
+					if (redoneentfernung == 0) {
+						System.out.println("\n\nDie erste Figur von"
+						+ LoadGui.startScreen.playground.textfield1.getText() + " ist im Ziel");
+						rot1imZiel = true;
+					}
+					break;
+				}
+				belegteSpielfelder[redone] = false;
+				redone = redone + w;
+				if (redone > 39) {
+					redone = redone - 40;
+				}
+				if (belegteSpielfelder[redone] == false) {
+					LoadGui.startScreen.playground.redone.setBounds(fieldsWhiteX[redone], fieldsWhiteY[redone],
+							61, 61);
+					belegteSpielfelder[redone] = true;
+					redoneentfernung = redoneentfernung - w;
+				} else {
+					System.out.println("Dieses Feld ist belegt, daher Zug nicht möglich.");
+					redone = redone - w;
+					if(redone<0)
+					{
+						redone = redone + 40;
+					}
+				}
+				firstZ++;
+				firstN = LoadGui.startScreen.playground.textfield2.getText();
+				break;
+				}
+				}
+				 catch (Exception e) {
+					 if(randNum==1) //Exception für Spieler 1 bei 2 Spielern draußen
+					 {
+					System.out.println("Dieser Zug ist nicht möglich");
+					redone = redone - w;
+					LoadGui.startScreen.playground.redone.setBounds(redwinfieldX[redone], redwinfieldY[redone], 61, 61);
+					belegteSpielfelder[redone] = true;
+					firstZ++;
+					firstN = LoadGui.startScreen.playground.textfield2.getText();
+					break;
+					// TODO: handle exception
+					 }
+					 if(randNum==0)
+					 {
+						 System.out.println("Dieser Zug ist nicht möglich");
+							redtwo = redtwo - w;
+							LoadGui.startScreen.playground.redtwo.setBounds(redwinfieldX[redtwo], redwinfieldY[redtwo], 61, 61);
+							belegteSpielfelder[redtwo] = true;
+							firstZ++;
+							firstN = LoadGui.startScreen.playground.textfield2.getText();
+							break;
+					 }
+					 else
+						 System.out.println("Dieser Zug ist nicht möglich");
+						redone = redone - w;
+						LoadGui.startScreen.playground.redone.setBounds(redwinfieldX[redone], redwinfieldY[redone], 61, 61);
+						belegteSpielfelder[redone] = true;
+						firstZ++;
+						firstN = LoadGui.startScreen.playground.textfield2.getText();
+						break;
+						// TODO: handle exception
+				}
+				
+				
+				
+				
+				
+			case 2:
+				try {
+					if (twoentfernung <= 9) {
+						belegteSpielfelder[two] = false;
+						two = two + w;
+						if (belegteSpielfelder[two] == false) {
+							LoadGui.startScreen.playground.blueone.setBounds(bluewinfieldX[two], bluewinfieldY[two], 61,
+									61);
+							belegteSpielfelder[two] = true;
+							twoentfernung = twoentfernung - w;
+						} else {
+							System.out.println("Dieses Feld ist belegt, daher Zug nicht möglich.");
+							two = two - w;
+						}
+						firstZ++;
+						firstN = LoadGui.startScreen.playground.textfield3.getText();
+						if (twoentfernung == 0) {
+							System.out.println("\n\nDie erste Figur von"
+									+ LoadGui.startScreen.playground.textfield2.getText() + " ist im Ziel");
+							b = false;
+						}
+						break;
+					}
+				} catch (Exception e) {
+					System.out.println("Dieser Zug ist nicht möglich");
+					two = two - w;
+					belegteSpielfelder[two] = true;
+					LoadGui.startScreen.playground.blueone.setBounds(bluewinfieldX[two], bluewinfieldY[two], 61, 61);
+					firstZ++;
+					firstN = LoadGui.startScreen.playground.textfield3.getText();
+					break;
+					// TODO: handle exception
+				}
+				belegteSpielfelder[two] = false;
+				two = two + w;
+				if (two > 39) {
+					two = two - 40;
+				}
+				if (belegteSpielfelder[two] == false) {
+					LoadGui.startScreen.playground.blueone.setBounds(fieldsWhiteX[two], fieldsWhiteY[two], 61, 61);
+					belegteSpielfelder[two] = true;
+					twoentfernung = twoentfernung - w;
+				} else {
+					System.out.println("Dieses Feld ist belegt, daher Zug nicht möglich.");
+					two = two - w;
+					if(two<0)
+					{
+						two = two + 40;
+					}
+				}
+				firstZ++;
+				firstN = LoadGui.startScreen.playground.textfield3.getText();
+				break;
+				
+				
+				
+				
+			case 3:
+				try {
+					if (threeentfernung <= 9) {
+						belegteSpielfelder[three] = false;
+						three = three + w;
+						if (belegteSpielfelder[three] == false) {
+							LoadGui.startScreen.playground.greenone.setBounds(greenwinfieldX[three],
+									greenwinfieldY[three], 61, 61);
+							belegteSpielfelder[three] = true;
+							threeentfernung = threeentfernung - w;
+						} else {
+							System.out.println("Dieses Feld ist belegt, daher Zug nicht möglich.");
+							three = three - w;
+						}
+						firstZ++;
+						firstN = LoadGui.startScreen.playground.textfield4.getText();
+						if (threeentfernung == 0) {
+							System.out.println("\n\nDie erste Figur von"
+									+ LoadGui.startScreen.playground.textfield3.getText() + " ist im Ziel");
+							b = false;
+						}
+						break;
+					}
+				} catch (Exception e) {
+					System.out.println("Dieser Zug ist nicht möglich");
+					three = three - w;
+					belegteSpielfelder[three] = true;
+					LoadGui.startScreen.playground.greenone.setBounds(greenwinfieldX[three], greenwinfieldY[three], 61,
+							61);
+					firstZ++;
+					firstN = LoadGui.startScreen.playground.textfield4.getText();
+					break;
+					// TODO: handle exception
+				}
+				belegteSpielfelder[three] = false;
+				three = three + w;
+				if (three > 39) {
+					three = three - 40;
+				}
+				if (belegteSpielfelder[three] == false) {
+					LoadGui.startScreen.playground.greenone.setBounds(fieldsWhiteX[three], fieldsWhiteY[three], 61, 61);
+					belegteSpielfelder[three] = true;
+					threeentfernung = threeentfernung - w;
+				} else {
+					System.out.println("Dieses Feld ist belegt, daher Zug nicht möglich.");
+					three = three - w;
+					if(three<0)
+					{
+						three = three + 40;
+					}
+				}
+				firstZ++;
+				firstN = LoadGui.startScreen.playground.textfield4.getText();
+				break;
+				
+				
+				
+				
+			case 4:
+				try {
+					if (foureentfernung <= 9) {
+						belegteSpielfelder[foure] = false;
+						foure = foure + w;
+						if (belegteSpielfelder[foure] == false) {
+							LoadGui.startScreen.playground.yellowone.setBounds(yellowwinfieldX[foure],
+									yellowwinfieldY[foure], 61, 61);
+							belegteSpielfelder[foure] = true;
+							foureentfernung = foureentfernung - w;
+						} else {
+							System.out.println("Dieses Feld ist belegt, daher Zug nicht möglich.");
+							foure = foure - w;
+						}
+						firstZ = 1;
+						firstN = LoadGui.startScreen.playground.textfield1.getText();
+						System.out.println("");
+						if (foureentfernung == 0) {
+							System.out.println("\n\nDie erste Figur von"
+									+ LoadGui.startScreen.playground.textfield4.getText() + " ist im Ziel");
+							b = false;
+						}
+						break;
+					}
+				} catch (Exception e) {
+					System.out.println("Dieser Zug ist nicht möglich");
+					foure = foure - w;
+					belegteSpielfelder[foure] = true;
+					LoadGui.startScreen.playground.yellowone.setBounds(yellowwinfieldX[foure], yellowwinfieldY[foure],
+							61, 61);
+					firstZ = 1;
+					firstN = LoadGui.startScreen.playground.textfield1.getText();
+					System.out.println("");
+					break;
+					// TODO: handle exception
+				}
+				belegteSpielfelder[foure] = false;
+				foure = foure + w;
+				if (foure > 39) {
+					foure = foure - 40;
+				}
+				if (belegteSpielfelder[foure] == false) {
+					LoadGui.startScreen.playground.yellowone.setBounds(fieldsWhiteX[foure], fieldsWhiteY[foure], 61,
+							61);
+					belegteSpielfelder[foure] = true;
+					foureentfernung = foureentfernung - w;
+				} else {
+					System.out.println("Dieses Feld ist belegt, daher Zug nicht möglich.");
+					foure = foure - w;
+					if(foure<0)
+					{
+						foure = foure + 40;
+					}
+				}
+				firstZ = 1;
+				firstN = LoadGui.startScreen.playground.textfield1.getText();
+				System.out.println("");
+				break;
+			}
+			w = 0;
+		}
 	}
 
-	
-	
+	public int getOut(int firstZ) {
+		switch (firstZ) {
+		case 1:
+			LoadGui.startScreen.playground.redone.setBounds(fieldsWhiteX[36], fieldsWhiteY[36], 61, 61);
+			break;
+		case 2:
+			LoadGui.startScreen.playground.blueone.setBounds(fieldsWhiteX[6], fieldsWhiteY[6], 61, 61);
+			break;
+		case 3:
+			LoadGui.startScreen.playground.yellowone.setBounds(fieldsWhiteX[26], fieldsWhiteY[26], 61, 61);
+			break;
+		case 4:
+			LoadGui.startScreen.playground.greenone.setBounds(fieldsWhiteX[16], fieldsWhiteY[16], 61, 61);
+			firstZ = 1;
+			break;
+		}
+		return 0;
+	}
+
 	public int wuerfeln() {
 		Random ran = new Random();
 		randNum = ran.nextInt(6) + 1;
+		return randNum;
+	}
+	
+	public int zufall()
+	{
+		Random zufallRandom = new Random();
+		randNum = zufallRandom.nextInt(2);
 		return randNum;
 	}
 
@@ -129,7 +564,8 @@ public class GameLogic {
 		}
 	}
 
-	public int[] bubblesort(int[] zusortieren) // Bubblesort Methode zum sortieren eines Feldes mit Integern. Von// groß nach klein.													
+	public int[] bubblesort(int[] zusortieren) // Bubblesort Methode zum sortieren eines Feldes mit Integern. Von
+												// groß nach klein.
 	{
 		int temp; // @param Variable zum Zwischenspeichern des Feldes.
 		for (int i = 1; i < zusortieren.length; i++) // Schleife zum durchlaufen des Feldes
@@ -147,327 +583,5 @@ public class GameLogic {
 			}
 		}
 		return zusortieren;
-	}
-	
-	public int game(int spieler)
-	{
-		boolean gewinn=false;
-		int wuerfel=0,counter=0;
-		spieler-=1;
-		do {
-			if(start[spieler]==4)
-			{
-				System.out.println(name(spieler)+" darf drei mal w�rfeln.");
-				while((wuerfel!=6)&&(counter<3))
-				{
-					wuerfel=wuerfeln();
-					System.out.println(name(spieler)+" hat eine "+wuerfel + "gew�rfelt.");
-					counter++;
-				}
-				counter=0;
-				if(wuerfel==6)
-				{
-					start[spieler]--;
-					System.out.println(name(spieler)+" kommt raus.");
-					delay(1000);
-					raus(spieler);
-					do {
-						delay(1000);
-						wuerfel=wuerfeln();
-						System.out.println(name(spieler)+" hatt eine "+wuerfel+" gew�rfelt.");
-						if(haus(spieler,wuerfel))
-						{
-							move(spieler,wuerfel);
-						}
-					}while(wuerfel==6);
-				}
-			}
-			else
-			{
-				wuerfel=wuerfeln();
-				System.out.println(name(spieler)+" hat eine "+wuerfel + " gew�rfelt.");
-				delay(1000);
-				if(haus(spieler,wuerfel))
-				{
-					move(spieler,wuerfel);
-				}
-			}
-			//gewinn pr�fung
-			if(haus[spieler][0]+haus[spieler][1]+haus[spieler][2]+haus[spieler][3]==1)
-			{
-				System.out.println(name(spieler)+" gewinnt");
-				gewinn=true;
-			}
-			//spielerwechsel
-			spieler=spielerwechsel(spieler);
-			
-		}while(gewinn==false);
-		spieler+=1;
-		return spieler;
-	}
-	
-	public void raus(int spieler)
-	{
-		switch(spieler)
-		{
-		case 0:
-			LoadGui.startScreen.playground.redone.setBounds(fieldsWhiteX[36], fieldsWhiteY[36], 61, 61);
-			figuren[0][0]=36;
-			break;
-		case 1:
-			LoadGui.startScreen.playground.blueone.setBounds(fieldsWhiteX[6], fieldsWhiteY[6], 61, 61);
-			figuren[1][0]=6;
-			break;
-		case 3:
-			LoadGui.startScreen.playground.greenone.setBounds(fieldsWhiteX[16], fieldsWhiteY[16], 61, 61);
-			figuren[2][0]=16;
-			break;
-		case 2:
-			LoadGui.startScreen.playground.yellowone.setBounds(fieldsWhiteX[26], fieldsWhiteY[26], 61, 61);
-			figuren[3][0]=26;
-			break;
-		}
-		
-	}
-	public String name(int spieler)
-	{
-		String firstN="fehler";
-		if(spieler==0)
-		{
-			firstN=LoadGui.startScreen.playground.textfield1.getText();
-		}
-		else if(spieler==1)
-		{
-			firstN=LoadGui.startScreen.playground.textfield2.getText();
-		}
-		else if(spieler==2)
-		{
-			firstN=LoadGui.startScreen.playground.textfield3.getText();
-		}
-		else if(spieler==3)
-		{
-			firstN=LoadGui.startScreen.playground.textfield4.getText();
-		}
-		return firstN;
-	}
-	public int spielerwechsel(int spieler)
-	{
-		if(spieler==3)
-		{
-			spieler=0;
-		}
-		else
-		{
-			spieler++;
-		}
-		return spieler;
-	}
-	//figuren wechsel!!
-	public void move(int spieler,int x)
-	{
-		
-		switch(spieler)
-		{
-		case 0:
-
-				figuren[0][0]+=x;
-		
-				if(figuren[0][0]>=39)
-				{
-					figuren[0][0]-=39;
-				}
-			
-				schlagen(spieler);
-				LoadGui.startScreen.playground.redone.setBounds(fieldsWhiteX[figuren[0][0]], fieldsWhiteY[figuren[0][0]], 61, 61);
-	
-			break;
-		case 1:
-
-				haus(spieler,x);
-				figuren[1][0]+=x;
-				if(figuren[1][0]>=39)
-				{
-					figuren[1][0]-=39;
-				}
-		
-				schlagen(spieler);
-				LoadGui.startScreen.playground.blueone.setBounds(fieldsWhiteX[figuren[1][0]], fieldsWhiteY[figuren[1][0]], 61, 61);
-	
-			break;
-		case 3:
-
-				haus(spieler,x);
-				figuren[2][0]+=x;
-				if(figuren[2][0]>=39)
-				{
-					figuren[2][0]-=39;
-				}
-
-				schlagen(spieler);
-				LoadGui.startScreen.playground.greenone.setBounds(fieldsWhiteX[figuren[2][0]], fieldsWhiteY[figuren[2][0]], 61, 61);
-	
-			break;
-		case 2:
-
-		
-				figuren[3][0]+=x;
-				if(figuren[3][0]>=39)
-				{
-					figuren[3][0]-=39;
-				}
-		
-				schlagen(spieler);
-				LoadGui.startScreen.playground.yellowone.setBounds(fieldsWhiteX[figuren[3][0]], fieldsWhiteY[figuren[3][0]], 61, 61);
-	
-			break;
-		}
-	}
-	public void schlagen(int spieler)
-	{
-		for(int i=0;i<4;i++)
-		{
-
-			for(int n=0;n<4;n++)
-			{
-
-				if((figuren[i][n]!=0)&&(figuren[i][n]==figuren[spieler][0])&&(i!=spieler))//figurenwechsel
-				{
-					figuren[i][n]=0;
-					start[i]++;
-					System.out.println(name(spieler)+" schl�gt "+name(i));
-					switch(i)
-					{
-					case 0:
-						LoadGui.startScreen.playground.redone.setBounds(10, 10, 61, 61);
-						break;
-					case 1:
-						LoadGui.startScreen.playground.blueone.setBounds(840, 10, 61, 61);
-						break;
-					case 2:
-						LoadGui.startScreen.playground.yellowone.setBounds(10, 820, 61, 61);
-						break;
-					case 3:
-						LoadGui.startScreen.playground.greenone.setBounds(840, 820, 61, 61);
-						break;
-					}
-				}
-			}
-		}
-	}
-	public boolean haus(int spieler,int wuerfel)
-	{
-		boolean aus=true;
-		switch(spieler)
-		{
-		case 0:
-			if((figuren[spieler][0]<=35)&&((figuren[spieler][0]+wuerfel)>35))
-			{
-				if(((figuren[spieler][0]+wuerfel-35)<4)&&((figuren[spieler][0]+wuerfel-35)>=0))
-				{
-					haus[spieler][figuren[spieler][0]+wuerfel-35]=1;
-					System.out.println(name(spieler)+" hatt einen Stein im Haus auf Stelle "+(figuren[spieler][0]+wuerfel-35));
-					switch(figuren[spieler][0]+wuerfel-35)
-					{
-					case 0:
-						LoadGui.startScreen.playground.redone.setBounds(124, 454, 61, 61);
-						break;
-					case 1:
-						LoadGui.startScreen.playground.redone.setBounds(208, 454, 61, 61);
-						break;
-					case 2:
-						LoadGui.startScreen.playground.redone.setBounds(292, 454, 61, 61);
-						break;
-					case 3:
-						LoadGui.startScreen.playground.redone.setBounds(380, 454, 61, 61);
-						break;
-					}
-					figuren[spieler][0]=0;
-				}
-				aus=false;
-			}
-			break;
-		case 1:
-			if((figuren[spieler][0]<=5)&&((figuren[spieler][0]+wuerfel)>5))
-			{
-				if(((figuren[spieler][0]+wuerfel-5)<4)&&((figuren[spieler][0]+wuerfel-5)>=0))
-				{
-					haus[spieler][figuren[spieler][0]+wuerfel-5]=1;
-					System.out.println(name(spieler)+" hatt einen Stein im Haus auf Stelle "+(figuren[spieler][0]+wuerfel-5));
-					switch(figuren[spieler][0]+wuerfel-5)
-					{
-					case 0:
-						LoadGui.startScreen.playground.blueone.setBounds(467, 120, 61, 61);
-						break;
-					case 1:
-						LoadGui.startScreen.playground.blueone.setBounds(467, 202, 61, 61);
-						break;
-					case 2:
-						LoadGui.startScreen.playground.blueone.setBounds(467, 284, 61, 61);
-						break;
-					case 3:
-						LoadGui.startScreen.playground.blueone.setBounds(467, 366, 61, 61);
-						break;
-					}
-					figuren[spieler][0]=0;
-				}	
-				aus=false;
-			}
-			break;
-		case 2:
-			if((figuren[spieler][0]<=25)&&((figuren[spieler][0]+wuerfel)>25))
-			{
-				if(((figuren[spieler][0]+wuerfel-25)<4)&&((figuren[spieler][0]+wuerfel-25)>=0))
-				{
-					haus[spieler][figuren[spieler][0]+wuerfel-25]=1;
-					System.out.println(name(spieler)+" hatt einen Stein im Haus auf Stelle "+(figuren[spieler][0]+wuerfel-25));
-					switch(figuren[spieler][0]+wuerfel-25)
-					{
-					case 0:
-						LoadGui.startScreen.playground.yellowone.setBounds(467, 788, 61, 61);
-						break;
-					case 1:
-						LoadGui.startScreen.playground.yellowone.setBounds(467, 706, 61, 61);
-						break;
-					case 2:
-						LoadGui.startScreen.playground.yellowone.setBounds(467, 624, 61, 61);
-						break;
-					case 3:
-						LoadGui.startScreen.playground.yellowone.setBounds(467, 542, 61, 61);
-						break;
-					}
-					figuren[spieler][0]=0;
-				}	
-				aus=false;
-			}
-			break;
-		case 3:
-			if((figuren[spieler][0]<=15)&&((figuren[spieler][0]+wuerfel)>15))
-			{
-				if(((figuren[spieler][0]+wuerfel-15)<4)&&((figuren[spieler][0]+wuerfel-15)>=0))
-				{
-					haus[spieler][figuren[spieler][0]+wuerfel-15]=1;
-					System.out.println(name(spieler)+" hatt einen Stein im Haus auf Stelle "+(figuren[spieler][0]+wuerfel-15));
-					switch(figuren[spieler][0]+wuerfel-15)
-					{
-					case 0:
-						LoadGui.startScreen.playground.greenone.setBounds(806, 454, 61, 61);
-						break;
-					case 1:
-						LoadGui.startScreen.playground.greenone.setBounds(724, 454, 61, 61);
-						break;
-					case 2:
-						LoadGui.startScreen.playground.greenone.setBounds(642, 454, 61, 61);
-						break;
-					case 3:
-						LoadGui.startScreen.playground.greenone.setBounds(555, 454, 61, 61);
-						break;
-					}
-					figuren[spieler][0]=0;
-				}	
-				aus=false;
-			}
-			break;
-		}
-		return aus;
 	}
 }

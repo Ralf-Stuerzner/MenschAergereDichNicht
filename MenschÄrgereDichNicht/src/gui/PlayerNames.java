@@ -37,18 +37,18 @@ public class PlayerNames extends JFrame
 		super("Spielernamen");
 		setVisible(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		int frameWidth = 300;											// Größe des Spielfensters
+		int frameWidth = 300;											// Grï¿½ï¿½e des Spielfensters
 		int frameHeight = 300;
 		setSize(frameWidth, frameHeight);	
 		Dimension d = Toolkit.getDefaultToolkit().getScreenSize();		// Fenster wird mittig ausgerichtet
 		int x = (d.width - getSize().width) / 2;
 		int y = (d.height - getSize().height) / 2;
 		setLocation(x, y);
-		Container cp = getContentPane();								// Container für Fenstervariablen				
+		Container cp = getContentPane();								// Container fï¿½r Fenstervariablen				
 		cp.setLayout(null);
 		cp.setBackground(Color.WHITE);
 		jLabel1.setBounds(20, 0, 261, 44);
-	    jLabel1.setText("Hier können Sie die Spielernamen eingeben.");
+	    jLabel1.setText("Hier kÃ¶nnen Sie die Spielernamen eingeben.");
 	    cp.add(jLabel1);	    
 	    jLabel2.setBounds(16, 56, 62, 20);
 	    jLabel2.setText("Spieler 1 :");
@@ -98,18 +98,18 @@ public class PlayerNames extends JFrame
 		super("Spielernamen");
 		setVisible(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		int frameWidth = 300;											// Größe des Spielfensters
+		int frameWidth = 300;											// Grï¿½ï¿½e des Spielfensters
 		int frameHeight = 300;
 		setSize(frameWidth, frameHeight);	
 		Dimension d = Toolkit.getDefaultToolkit().getScreenSize();		// Fenster wird mittig ausgerichtet
 		int x = (d.width - getSize().width) / 2;
 		int y = (d.height - getSize().height) / 2;
 		setLocation(x, y);
-		Container cp = getContentPane();								// Container für Fenstervariablen				
+		Container cp = getContentPane();								// Container fï¿½r Fenstervariablen				
 		cp.setLayout(null);
 		cp.setBackground(Color.WHITE);
 		jLabel1.setBounds(20, 0, 261, 44);
-	    jLabel1.setText("Hier können Sie die Spielernamen eingeben.");
+	    jLabel1.setText("Hier kÃ¶nnen Sie die Spielernamen eingeben.");
 	    cp.add(jLabel1);
 	    jLabel2.setBounds(16, 56, 62, 20);
 	    jLabel2.setText("Spieler 1 :");
@@ -130,7 +130,7 @@ public class PlayerNames extends JFrame
 			LoadGui.startScreen.playground.textfield1.setText(jTextField1.getText());
     		LoadGui.startScreen.playground.textfield2.setText(jTextfield2.getText());
 			LoadGui.startScreen.playground.textfield3.setText(jTextField3.getText());
-			LoadGui.startScreen.playground.textfield4.setText("ComputerGruen");
+			LoadGui.startScreen.playground.textfield4.setText("ComputerGelb");
 			LoadGui.startScreen.playground.setVisible(true);
 			dispose();
 		}
@@ -154,18 +154,18 @@ public class PlayerNames extends JFrame
 		super("Spielernamen");
 		setVisible(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		int frameWidth = 300;											// Größe des Spielfensters
+		int frameWidth = 300;											// Grï¿½ï¿½e des Spielfensters
 		int frameHeight = 300;
 		setSize(frameWidth, frameHeight);	
 		Dimension d = Toolkit.getDefaultToolkit().getScreenSize();		// Fenster wird mittig ausgerichtet
 		int x = (d.width - getSize().width) / 2;
 		int y = (d.height - getSize().height) / 2;
 		setLocation(x, y);
-		Container cp = getContentPane();								// Container für Fenstervariablen				
+		Container cp = getContentPane();								// Container fï¿½r Fenstervariablen				
 		cp.setLayout(null);
 		cp.setBackground(Color.WHITE);
 		jLabel1.setBounds(20, 0, 261, 44);
-	    jLabel1.setText("Hier können Sie die Spielernamen eingeben.");
+	    jLabel1.setText("Hier kÃ¶nnen Sie die Spielernamen eingeben.");
 	    cp.add(jLabel1);
 	    jLabel2.setBounds(16, 56, 62, 20);
 	    jLabel2.setText("Spieler 1 :");
@@ -185,8 +185,8 @@ public class PlayerNames extends JFrame
 	    	{
 	    		LoadGui.startScreen.playground.textfield1.setText(jTextField1.getText());
 	    		LoadGui.startScreen.playground.textfield2.setText(jTextfield2.getText());
-	    		LoadGui.startScreen.playground.textfield3.setText("ComputerGelb");
-				LoadGui.startScreen.playground.textfield4.setText("ComputerGruen");
+	    		LoadGui.startScreen.playground.textfield3.setText("ComputerGruen");
+				LoadGui.startScreen.playground.textfield4.setText("ComputerGelb");
 	    		LoadGui.startScreen.playground.setVisible(true);
 	    		dispose();
 	    	}
@@ -203,18 +203,18 @@ public class PlayerNames extends JFrame
 		super("Spielernamen");
 		setVisible(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		int frameWidth = 300;											// Größe des Spielfensters
+		int frameWidth = 300;											// Grï¿½ï¿½e des Spielfensters
 		int frameHeight = 300;
 		setSize(frameWidth, frameHeight);	
 		Dimension d = Toolkit.getDefaultToolkit().getScreenSize();		// Fenster wird mittig ausgerichtet
 		int x = (d.width - getSize().width) / 2;
 		int y = (d.height - getSize().height) / 2;
 		setLocation(x, y);
-		Container cp = getContentPane();								// Container für Fenstervariablen				
+		Container cp = getContentPane();								// Container fï¿½r Fenstervariablen				
 		cp.setLayout(null);
 		cp.setBackground(Color.WHITE);
 		textfield1.setBounds(20, 0, 261, 44);
-	    textfield1.setText("Hier können Sie die Spielernamen eingeben.");
+	    textfield1.setText("Hier kÃ¶nnen Sie die Spielernamen eingeben.");
 	    cp.add(textfield1); 
 	    textfield2.setBounds(16, 56, 62, 20);
 	    textfield2.setText("Spieler 1 :");
@@ -234,8 +234,8 @@ public class PlayerNames extends JFrame
 		{
 			LoadGui.startScreen.playground.textfield1.setText(jTextField1.getText());
 			LoadGui.startScreen.playground.textfield2.setText("ComputerBlau");
-			LoadGui.startScreen.playground.textfield3.setText("ComputerGelb");
-			LoadGui.startScreen.playground.textfield4.setText("ComputerGruen");
+			LoadGui.startScreen.playground.textfield3.setText("ComputerGruen");
+			LoadGui.startScreen.playground.textfield4.setText("ComputerGelb");
 			LoadGui.startScreen.playground.setVisible(true);
 			dispose();
 		}

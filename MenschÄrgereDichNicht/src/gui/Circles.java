@@ -33,9 +33,9 @@ class Circles extends JComponent {
 			mx = 30;
 			my = 30;
 			r = 30;
-			Ellipse2D.Double auﬂenkreis = new Ellipse2D.Double(mx - r, my - r, 2 * r, 2 * r);
-			g2d.draw(auﬂenkreis);
-			g2d.fill(auﬂenkreis);
+			Ellipse2D.Double au√üenkreis = new Ellipse2D.Double(mx - r, my - r, 2 * r, 2 * r);
+			g2d.draw(au√üenkreis);
+			g2d.fill(au√üenkreis);
 			g2d.setColor(color);
 			mx = 30;
 			my = 30;
@@ -53,9 +53,9 @@ class Circles extends JComponent {
 			mx = 30;
 			my = 30;
 			r = 22;
-			Ellipse2D.Double auﬂenkreis = new Ellipse2D.Double(mx - r, my - r, 2 * r, 2 * r);
-			g2d.draw(auﬂenkreis);
-			g2d.fill(auﬂenkreis);
+			Ellipse2D.Double au√üenkreis = new Ellipse2D.Double(mx - r, my - r, 2 * r, 2 * r);
+			g2d.draw(au√üenkreis);
+			g2d.fill(au√üenkreis);
 			g2d.setColor(color);
 			mx = 30;
 			my = 30;
