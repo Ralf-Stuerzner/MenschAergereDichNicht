@@ -158,9 +158,8 @@ private int randNum;
 			int wuerfel=0,counter=0,x=0;
 			spieler-=1;
 			do {
-				
-				System.out.println(name(spieler)+" mit figur "+ figur);
 				System.out.println("");
+				System.out.println(name(spieler)+" mit figur "+ figur);
 				if((start[spieler]==4)||((hausvoll(spieler)&&((start[spieler]+hausvoll[spieler])==4))))
 				{
 					while((wuerfel!=6)&&(counter<3))
@@ -221,6 +220,7 @@ private int randNum;
 							{
 								if(haus(spieler,wuerfel))
 								{
+									if()
 									figurenauswahl(spieler,wuerfel);
 									move(spieler,wuerfel);
 								}
@@ -237,6 +237,8 @@ private int randNum;
 //				x++;
 //				if(x==4)
 //					gewinn=true;
+				System.out.println(name(spieler)+"haus:"+haus[spieler][0]+" "+haus[spieler][1]+" "+haus[spieler][2]+" "+haus[spieler][3]);
+				System.out.println("start:"+start[spieler]);
 				for(int i=0;i<3;i++)
 				{
 					if(figuren[spieler][i]==-1000)
@@ -316,6 +318,8 @@ private int randNum;
 			}
 			
 		}
+		
+		
 		public String name(int spieler)
 		{
 			String firstN="fehler";
@@ -337,6 +341,7 @@ private int randNum;
 			}
 			return firstN;
 		}
+		
 		public int spielerwechsel(int spieler)
 		{
 			if(spieler==3)
@@ -349,7 +354,7 @@ private int randNum;
 			}
 			return spieler;
 		}
-		//figuren wechsel!!
+		
 		public void move(int spieler,int x)
 		{
 			
@@ -404,6 +409,7 @@ private int randNum;
 				break;
 			}
 		}
+		
 		public void schlagen(int spieler)
 		{
 			for(int i=0;i<4;i++)
@@ -412,7 +418,7 @@ private int randNum;
 				for(int n=0;n<4;n++)
 				{
 
-					if((figuren[i][n]!=0)&&(figuren[i][n]==figuren[spieler][figur])&&(i!=spieler))//figurenwechsel
+					if((figuren[i][n]!=-10)&&(figuren[i][n]==figuren[spieler][figur])&&(i!=spieler))//figurenwechsel
 					{
 						figuren[i][n]=-10;
 						start[i]++;
@@ -494,6 +500,7 @@ private int randNum;
 				}
 			}
 		}
+		
 		public boolean haus(int spieler,int wuerfel)
 		{
 			boolean aus=true;
@@ -504,7 +511,7 @@ private int randNum;
 				{
 					if(((figuren[spieler][figur]+wuerfel-35)<4)&&((figuren[spieler][figur]+wuerfel-35)>=0))
 					{
-						if(haus[spieler][figuren[spieler][figur]+wuerfel-36]!=1)
+						if(haus[spieler][figuren[spieler][figur]+wuerfel-36]==-1)
 						{
 							haus[spieler][figuren[spieler][figur]+wuerfel-36]=figuren[spieler][figur]+wuerfel-36;
 							System.out.println(name(spieler)+" hatt einen Stein im Haus auf Stelle "+(figuren[spieler][figur]+wuerfel-35));
@@ -563,7 +570,7 @@ private int randNum;
 				{
 					if(((figuren[spieler][figur]+wuerfel-5)<4)&&((figuren[spieler][figur]+wuerfel-5)>=0))
 					{
-						if(haus[spieler][figuren[spieler][figur]+wuerfel-6]!=1)
+						if(haus[spieler][figuren[spieler][figur]+wuerfel-6]==-1)
 						{
 							haus[spieler][figuren[spieler][figur]+wuerfel-6]=figuren[spieler][figur]+wuerfel-6;
 							System.out.println(name(spieler)+" hatt einen Stein im Haus auf Stelle "+(figuren[spieler][figur]+wuerfel-5));
@@ -623,7 +630,7 @@ private int randNum;
 				{
 					if(((figuren[spieler][figur]+wuerfel-25)<4)&&((figuren[spieler][figur]+wuerfel-25)>=0))
 					{
-						if(haus[spieler][figuren[spieler][figur]+wuerfel-26]!=1)
+						if(haus[spieler][figuren[spieler][figur]+wuerfel-26]==-1)
 						{
 							haus[spieler][figuren[spieler][figur]+wuerfel-26]=figuren[spieler][figur]+wuerfel-26;
 							System.out.println(name(spieler)+" hatt einen Stein im Haus auf Stelle "+(figuren[spieler][0]+wuerfel-25));
@@ -682,7 +689,7 @@ private int randNum;
 				{
 					if(((figuren[spieler][figur]+wuerfel-15)<4)&&((figuren[spieler][figur]+wuerfel-15)>=0))
 					{
-						if(haus[spieler][figuren[spieler][figur]+wuerfel-16]!=1)
+						if(haus[spieler][figuren[spieler][figur]+wuerfel-16]==-1)
 						{
 							haus[spieler][figuren[spieler][figur]+wuerfel-16]=1;
 							System.out.println(name(spieler)+" hatt einen Stein im Haus auf Stelle "+(figuren[spieler][figur]+wuerfel-15));
@@ -739,22 +746,19 @@ private int randNum;
 			}
 			return aus;
 		}
+		
 		public void figurenauswahl(int s,int w)
 		{
-			
 			int x=0;
 			switch(start[s])
 			{
 			case 4:
-				System.out.println("bei 4");
 				figur=0;
 			case 3:
-				System.out.println("bei 3");
 				x=figuren[s][0];
 				figur=0;
 				for(int i=0;i<4;i++)
 				{
-					System.out.println(x);
 					if(figuren[s][i]>x)
 					{
 						x=figuren[s][i];
@@ -763,12 +767,11 @@ private int randNum;
 				}
 				break;
 			case 2:
-				System.out.println("bei 2");
+				
 				x=figuren[s][0];
 				figur=0;
 				for(int i=0;i<4;i++)
 				{
-					System.out.println(x);
 					if(figuren[s][i]>x)
 					{
 						x=figuren[s][i];
@@ -778,12 +781,12 @@ private int randNum;
 				
 				break;
 			case 1:
-				System.out.println("bei 1");
+			
 				x=figuren[s][0];
 				figur=0;
 				for(int i=0;i<4;i++)
 				{
-					System.out.println(x);
+					
 					if(figuren[s][i]>x)
 					{
 						x=figuren[s][i];
@@ -793,12 +796,12 @@ private int randNum;
 				break;
 			
 			case 0:
-				System.out.println("bei 0");
+				
 				x=figuren[s][0];
 				figur=0;
 				for(int i=0;i<4;i++)
 				{
-					System.out.println(x);
+					
 					if(figuren[s][i]>x)
 					{
 						x=figuren[s][i];
@@ -807,8 +810,8 @@ private int randNum;
 				}
 				break;
 			}
-			
 		}
+		
 		public void figurenzeichner(int figur,int spieler)
 		{
 			if(spieler==0)
@@ -888,6 +891,7 @@ private int randNum;
 				}
 			}
 		}
+		
 		public boolean haushoch(int spieler, int x)
 		{
 			boolean aus=true;
@@ -898,7 +902,6 @@ private int randNum;
 				{
 					if(((haus[spieler][i]+x)<4)&&(haus[spieler][haus[spieler][i]+x]==-1))
 					{
-						
 						a=haus[spieler][i]+x;
 						haus[spieler][i]=-1;
 						haus[spieler][a]=a;
@@ -974,11 +977,13 @@ private int randNum;
 							}
 							break;
 						}
+						i=4;
 					}
 				}
 			}
 			return aus;
 		}
+		
 		public boolean hausvoll(int spieler)
 		{
 			boolean aus=true;
@@ -1023,11 +1028,4 @@ private int randNum;
 			return aus;
 		}
 }
-
-
-
-
-
-
-
 
