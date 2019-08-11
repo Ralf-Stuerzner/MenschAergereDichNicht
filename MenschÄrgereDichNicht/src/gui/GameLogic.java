@@ -7,7 +7,9 @@ public class GameLogic {
 private int randNum;
 		private int figuren[][]= {{-10,-10,-10,-10},{-10,-10,-10,-10},{-10,-10,-10,-10},{-10,-10,-10,-10}};
 		private int[] start= {4,4,4,4};
-		private int[][] haus = {{0,0,0,0},{0,0,0,0},{0,0,0,0},{0,0,0,0}};
+		private int[][] haus = {{-1,-1,-1,-1},{-1,-1,-1,-1},{-1,-1,-1,-1},{-1,-1,-1,-1}};
+		private int[][] hausx = {{124,208,292,380},{467,467,467,467},{467,467,467,467},{806,724,642,560}};
+		private int[][] hausy = {{454,454,454,454},{120,202,284,366},{788,706,624,542},{454,454,454,454}};
 		public int[] fieldsWhiteX = { 380, 380, 380, 380, 380, 467, 555, 555, 555, 555, 555, 642, 724, 806, 888, 888,
 				888, 806, 724, 642, 555, 555, 555, 555, 555, 467, 380, 380, 380, 380, 380, 293, 211, 126, 38, 38, 38, 124,
 				208, 292 };
@@ -169,11 +171,11 @@ private int randNum;
 					if(wuerfel==6)
 					{
 						System.out.println(name(spieler)+" kommt raus.");
-						delay(1000);
+						delay(100);
 						raus(spieler);
 						start[spieler]--;
 						do {
-							delay(1000);
+							delay(100);
 							wuerfel=wuerfeln();
 						
 							System.out.println(name(spieler)+" hatt eine "+wuerfel+" gewürfelt.");
@@ -193,10 +195,10 @@ private int randNum;
 					{
 						do {
 							System.out.println(name(spieler)+" kommt raus.");
-							delay(1000);
+							delay(100);
 							raus(spieler);
 							start[spieler]--;
-							delay(1000);
+							delay(100);
 							wuerfel=wuerfeln();
 							System.out.println(name(spieler)+" hatt eine "+wuerfel+" gewürfelt.");
 							move(spieler,wuerfel);
@@ -212,11 +214,18 @@ private int randNum;
 						do {
 						
 							System.out.println(name(spieler)+" hat eine "+wuerfel + " gewürfelt.");
-							delay(1000);
-							if(haus(spieler,wuerfel))
+							delay(100);
+							if(haushoch(spieler,wuerfel))
 							{
-								move(spieler,wuerfel);
+								if(haus(spieler,wuerfel))
+								{
+									move(spieler,wuerfel);
+								}
 							}
+							if(wuerfel==6)
+								wuerfel=wuerfeln();
+							else
+								wuerfel=0;
 							
 						}while(wuerfel==6);
 					}
@@ -225,11 +234,18 @@ private int randNum;
 //				x++;
 //				if(x==4)
 //					gewinn=true;
-				if(haus[spieler][0]+haus[spieler][1]+haus[spieler][2]+haus[spieler][3]==4)
+				for(int i=0;i<3;i++)
 				{
-					System.out.println(name(spieler)+"gewinnt");
+					if(figuren[spieler][i]==-1000)
+					{
+						x++;
+					}
+				}
+				if(x==4)
+				{
 					gewinn=true;
 				}
+				x=0;
 				//spielerwechsel
 				spieler=spielerwechsel(spieler);
 				
@@ -260,7 +276,6 @@ private int randNum;
 					figur=3;
 				else
 					figur=0;
-				figur=2;
 				break;
 			case 1:
 				if(figuren[spieler][1]==-10)
@@ -271,7 +286,6 @@ private int randNum;
 					figur=3;
 				else
 					figur=0;
-				figur=2;
 				break;
 			}
 			switch(spieler)
@@ -489,9 +503,9 @@ private int randNum;
 				{
 					if(((figuren[spieler][figur]+wuerfel-35)<4)&&((figuren[spieler][figur]+wuerfel-35)>=0))
 					{
-						if(haus[spieler][figuren[spieler][figur]+wuerfel-16]!=1)
+						if(haus[spieler][figuren[spieler][figur]+wuerfel-36]!=1)
 						{
-							haus[spieler][figuren[spieler][figur]+wuerfel-36]=1;
+							haus[spieler][figuren[spieler][figur]+wuerfel-36]=figuren[spieler][figur]+wuerfel-36;
 							System.out.println(name(spieler)+" hatt einen Stein im Haus auf Stelle "+(figuren[spieler][figur]+wuerfel-35));
 							switch(figuren[spieler][figur]+wuerfel-36)
 							{
@@ -537,7 +551,7 @@ private int randNum;
 								break;
 							}
 							System.out.println(haus[spieler][0]+""+haus[spieler][1]+""+haus[spieler][2]+""+haus[spieler][3]);
-							figuren[spieler][figur]=-1;
+							figuren[spieler][figur]=-1000;
 						}
 					}	
 					aus=false;
@@ -548,9 +562,9 @@ private int randNum;
 				{
 					if(((figuren[spieler][figur]+wuerfel-5)<4)&&((figuren[spieler][figur]+wuerfel-5)>=0))
 					{
-						if(haus[spieler][figuren[spieler][figur]+wuerfel-16]!=1)
+						if(haus[spieler][figuren[spieler][figur]+wuerfel-6]!=1)
 						{
-							haus[spieler][figuren[spieler][figur]+wuerfel-6]=1;
+							haus[spieler][figuren[spieler][figur]+wuerfel-6]=figuren[spieler][figur]+wuerfel-6;
 							System.out.println(name(spieler)+" hatt einen Stein im Haus auf Stelle "+(figuren[spieler][figur]+wuerfel-5));
 							switch(figuren[spieler][figur]+wuerfel-6)
 							{
@@ -597,7 +611,7 @@ private int randNum;
 								break;
 							}
 							System.out.println(haus[spieler][0]+haus[spieler][1]+haus[spieler][2]+haus[spieler][3]);
-							figuren[spieler][figur]=-1;
+							figuren[spieler][figur]=-1000;
 						}
 					}	
 					aus=false;
@@ -608,9 +622,9 @@ private int randNum;
 				{
 					if(((figuren[spieler][figur]+wuerfel-25)<4)&&((figuren[spieler][figur]+wuerfel-25)>=0))
 					{
-						if(haus[spieler][figuren[spieler][figur]+wuerfel-16]!=1)
+						if(haus[spieler][figuren[spieler][figur]+wuerfel-26]!=1)
 						{
-							haus[spieler][figuren[spieler][0]+wuerfel-26]=1;
+							haus[spieler][figuren[spieler][figur]+wuerfel-26]=figuren[spieler][figur]+wuerfel-26;
 							System.out.println(name(spieler)+" hatt einen Stein im Haus auf Stelle "+(figuren[spieler][0]+wuerfel-25));
 							switch(figuren[spieler][figur]+wuerfel-26)
 							{
@@ -656,7 +670,7 @@ private int randNum;
 								break;
 							}
 							System.out.println(haus[spieler][0]+haus[spieler][1]+haus[spieler][2]+haus[spieler][3]);
-							figuren[spieler][figur]=-1;
+							figuren[spieler][figur]=-1000;
 						}
 					}	
 					aus=false;
@@ -715,7 +729,7 @@ private int randNum;
 								break;
 							}
 							System.out.println(haus[spieler][0]+haus[spieler][1]+haus[spieler][2]+haus[spieler][3]);
-							figuren[spieler][figur]=-1;
+							figuren[spieler][figur]=-1000;
 						}
 					}	
 					aus=false;
@@ -726,25 +740,34 @@ private int randNum;
 		}
 		public void figurenauswahl(int s)
 		{
-			System.out.println(name(s)+":"+start[s]);
+			
 			int x=0;
 			switch(start[s])
 			{
 			case 4:
+				System.out.println("bei 4");
 				figur=0;
 			case 3:
+				System.out.println("bei 3");
+				x=figuren[s][0];
+				figur=0;
 				for(int i=0;i<4;i++)
 				{
-					if(figuren[s][i]!=-10)
+					System.out.println(x);
+					if(figuren[s][i]>x)
 					{
+						x=figuren[s][i];
 						figur=i;
 					}
 				}
 				break;
 			case 2:
+				System.out.println("bei 2");
 				x=figuren[s][0];
+				figur=0;
 				for(int i=0;i<4;i++)
 				{
+					System.out.println(x);
 					if(figuren[s][i]>x)
 					{
 						x=figuren[s][i];
@@ -754,9 +777,12 @@ private int randNum;
 				
 				break;
 			case 1:
+				System.out.println("bei 1");
 				x=figuren[s][0];
+				figur=0;
 				for(int i=0;i<4;i++)
 				{
+					System.out.println(x);
 					if(figuren[s][i]>x)
 					{
 						x=figuren[s][i];
@@ -766,9 +792,12 @@ private int randNum;
 				break;
 			
 			case 0:
+				System.out.println("bei 0");
 				x=figuren[s][0];
+				figur=0;
 				for(int i=0;i<4;i++)
 				{
+					System.out.println(x);
 					if(figuren[s][i]>x)
 					{
 						x=figuren[s][i];
@@ -858,7 +887,95 @@ private int randNum;
 				}
 			}
 		}
-		
+		public boolean haushoch(int spieler, int x)
+		{
+			boolean aus=true;
+			int a;
+			for(int i=0;i<4;i++)
+			{
+				if(haus[spieler][i]!=-1)
+				{
+					if((haus[spieler][i]+x)<4)
+					{
+						a=haus[spieler][i]+x;
+						haus[spieler][a]=a;
+						aus=false;
+						switch(spieler)
+						{
+						case 0:
+							switch(figur)
+							{
+							case 0:
+								LoadGui.startScreen.playground.redone.setBounds(hausx[spieler][a],hausy[spieler][a] , 61, 61);
+								break;
+							case 1:
+								LoadGui.startScreen.playground.redtwo.setBounds(hausx[spieler][a],hausy[spieler][a] , 61, 61);
+								break;
+							case 2:
+								LoadGui.startScreen.playground.redthree.setBounds(hausx[spieler][a],hausy[spieler][a] , 61, 61);
+								break;
+							case 3:
+								LoadGui.startScreen.playground.redfour.setBounds(hausx[spieler][a],hausy[spieler][a] , 61, 61);
+								break;
+							}
+							break;
+						case 1:
+							switch(figur)
+							{
+							case 0:
+								LoadGui.startScreen.playground.blueone.setBounds(hausx[spieler][a],hausy[spieler][a] , 61, 61);
+								break;
+							case 1:
+								LoadGui.startScreen.playground.bluetwo.setBounds(hausx[spieler][a],hausy[spieler][a] , 61, 61);
+								break;
+							case 2:
+								LoadGui.startScreen.playground.bluethree.setBounds(hausx[spieler][a],hausy[spieler][a] , 61, 61);
+								break;
+							case 3:
+								LoadGui.startScreen.playground.bluefour.setBounds(hausx[spieler][a],hausy[spieler][a] , 61, 61);
+								break;
+							}
+							break;
+						case 2:
+							switch(figur)
+							{
+							case 0:
+								LoadGui.startScreen.playground.yellowone.setBounds(hausx[spieler][a],hausy[spieler][a] , 61, 61);
+								break;
+							case 1:
+								LoadGui.startScreen.playground.yellowtwo.setBounds(hausx[spieler][a],hausy[spieler][a] , 61, 61);
+								break;
+							case 2:
+								LoadGui.startScreen.playground.yellowthree.setBounds(hausx[spieler][a],hausy[spieler][a] , 61, 61);
+								break;
+							case 3:
+								LoadGui.startScreen.playground.yellowfour.setBounds(hausx[spieler][a],hausy[spieler][a] , 61, 61);
+								break;
+							}
+							break;
+						case 3:
+							switch(figur)
+							{
+							case 0:
+								LoadGui.startScreen.playground.greenone.setBounds(hausx[spieler][a],hausy[spieler][a] , 61, 61);
+								break;
+							case 1:
+								LoadGui.startScreen.playground.greentwo.setBounds(hausx[spieler][a],hausy[spieler][a] , 61, 61);
+								break;
+							case 2:
+								LoadGui.startScreen.playground.greenthree.setBounds(hausx[spieler][a],hausy[spieler][a] , 61, 61);
+								break;
+							case 3:
+								LoadGui.startScreen.playground.greenfour.setBounds(hausx[spieler][a],hausy[spieler][a] , 61, 61);
+								break;
+							}
+							break;
+						}
+					}
+				}
+			}
+			return aus;
+		}
 }
 
 
