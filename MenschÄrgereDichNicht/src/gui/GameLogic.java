@@ -21,13 +21,13 @@ private int randNum;
 		public int figur=0;
 
 		public void logic() {
-			System.out.println("\tWillkommen bei dem Spiel Mensch Ärgere Dich nicht\n\n");
+			System.out.println("\tWillkommen bei dem Spiel Mensch ï¿½rgere Dich nicht\n\n");
 			delay(1000);
 			System.out.println(" Spieler 1 : " + LoadGui.startScreen.playground.textfield1.getText());
 			System.out.println(" Spieler 2 : " + LoadGui.startScreen.playground.textfield2.getText());
 			System.out.println(" Spieler 3 : " + LoadGui.startScreen.playground.textfield3.getText());
 			System.out.println(" Spieler 4 : " + LoadGui.startScreen.playground.textfield4.getText());
-			System.out.println("\nDas Spiel geht los. Als erstes würfeln die Spieler darum wer anfängt.");
+			System.out.println("\nDas Spiel geht los. Als erstes wï¿½rfeln die Spieler darum wer anfï¿½ngt.");
 			delay(3000);
 //			LoadGui.startScreen.playground.greenone.setBounds(380, 366, 61, 61);
 
@@ -49,16 +49,16 @@ private int randNum;
 					wuerfelSp[x] = wuerfel[x];
 				}
 				System.out.println(" " + LoadGui.startScreen.playground.textfield1.getText() + " hat eine " + wuerfel[0]
-						+ " gewürfelt.  ");
+						+ " gewï¿½rfelt.  ");
 				System.out.println(" " + LoadGui.startScreen.playground.textfield2.getText() + " hat eine " + wuerfel[1]
-						+ " gewürfelt. ");
+						+ " gewï¿½rfelt. ");
 				System.out.println(" " + LoadGui.startScreen.playground.textfield3.getText() + " hat eine " + wuerfel[2]
-						+ " gewürfelt. ");
+						+ " gewï¿½rfelt. ");
 				System.out.println(" " + LoadGui.startScreen.playground.textfield4.getText() + " hat eine " + wuerfel[3]
-						+ " gewürfelt. ");
+						+ " gewï¿½rfelt. ");
 
 				bubblesort(wuerfel);
-				System.out.println("\n " + wuerfel[0] + " ist die höchste Augenzahl");
+				System.out.println("\n " + wuerfel[0] + " ist die hï¿½chste Augenzahl");
 				// auf Duplikate prÃ¼fen
 				int u = 0;
 				firstZ = 0;
@@ -88,10 +88,10 @@ private int randNum;
 				}
 				// System.out.println(duplikate[0]+""+duplikate[1]+""+duplikate[2]+""+duplikate[3]);
 				if (u >= 2) {
-					System.out.println("Duplikate gefunden, es wird neu gewürfelt."); // Baustelle funktioniert noch nicht
+					System.out.println("Duplikate gefunden, es wird neu gewï¿½rfelt."); // Baustelle funktioniert noch nicht
 				} else {
 					System.out.println("Das Spiel geht los");
-					System.out.println("Spieler " + firstN + " fängt an.");
+					System.out.println("Spieler " + firstN + " fï¿½ngt an.");
 				}
 			}
 			int spieler=0;
@@ -165,7 +165,7 @@ private int randNum;
 					while((wuerfel!=6)&&(counter<3))
 					{
 						wuerfel=wuerfeln();
-						System.out.println(name(spieler)+" hat eine "+wuerfel + " gewürfelt.");
+						System.out.println(name(spieler)+" hat eine "+wuerfel + " gewï¿½rfelt.");
 						counter++;
 					}
 					counter=0;
@@ -179,7 +179,7 @@ private int randNum;
 							delay(100);
 							wuerfel=wuerfeln();
 						
-							System.out.println(name(spieler)+" hatt eine "+wuerfel+" gewürfelt.");
+							System.out.println(name(spieler)+" hatt eine "+wuerfel+" gewï¿½rfelt.");
 							if(haus(spieler,wuerfel))
 							{
 								move(spieler,wuerfel);
@@ -201,7 +201,7 @@ private int randNum;
 							start[spieler]--;
 							delay(100);
 							wuerfel=wuerfeln();
-							System.out.println(name(spieler)+" hatt eine "+wuerfel+" gewürfelt.");
+							System.out.println(name(spieler)+" hatt eine "+wuerfel+" gewï¿½rfelt.");
 							move(spieler,wuerfel);
 							
 							if(wuerfel==6)
@@ -214,7 +214,7 @@ private int randNum;
 					{
 						do {
 						
-							System.out.println(name(spieler)+" hat eine "+wuerfel + " gewürfelt.");
+							System.out.println(name(spieler)+" hat eine "+wuerfel + " gewï¿½rfelt.");
 							delay(100);
 							if(haushoch(spieler,wuerfel))
 							{
@@ -233,7 +233,7 @@ private int randNum;
 						}while(wuerfel==6);
 					}
 				}
-				//gewinn prüfung
+				//gewinn prï¿½fung
 //				x++;
 //				if(x==4)
 //					gewinn=true;
@@ -422,7 +422,7 @@ private int randNum;
 					{
 						figuren[i][n]=-10;
 						start[i]++;
-						System.out.println(name(spieler)+" schlägt "+name(i));
+						System.out.println(name(spieler)+" schlï¿½gt "+name(i));
 						switch(i)
 						{
 						case 0:
@@ -987,7 +987,7 @@ private int randNum;
 		public boolean hausvoll(int spieler)
 		{
 			boolean aus=true;
-			int lücke=0;
+			int lÃ¼cke=0;
 			if(haus[spieler][3]!=-1)
 			{
 				hausvoll[spieler]++;
@@ -997,14 +997,14 @@ private int randNum;
 					if(haus[spieler][1]!=-1)
 					{
 						hausvoll[spieler]++;
-						if(lücke!=0)
+						if(lÃ¼cke!=0)
 						{
 							aus=false;
 						}
 						if(haus[spieler][0]!=-1)
 						{
 							hausvoll[spieler]++;
-							if(lücke!=0)
+							if(lÃ¼cke!=0)
 							{
 								aus=false;
 							}
@@ -1012,12 +1012,12 @@ private int randNum;
 					}
 					else
 					{
-						lücke++;
+						lÃ¼cke++;
 					}
 				}
 				else
 				{
-					lücke++;
+					lÃ¼cke++;
 				}
 			}
 			else
